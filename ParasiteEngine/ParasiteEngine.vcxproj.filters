@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="ParasiteEngine">
+      <UniqueIdentifier>{349547A5-2063-3BAB-09F7-ABD1F5631710}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ParasiteEngine\Events">
+      <UniqueIdentifier>{98DE2229-044B-DE23-CD3E-7681396A008C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ParasiteEngine\Platform">
+      <UniqueIdentifier>{08EC7219-7423-BBB0-7D2D-1FD4E9E3E1A9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\ParasiteEngine.h" />
+    <ClInclude Include="Source\ParasiteEngine\Application.h">
+      <Filter>ParasiteEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ParasiteEngine\Core.h">
+      <Filter>ParasiteEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ParasiteEngine\EntryPoint.h">
+      <Filter>ParasiteEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ParasiteEngine\Events\ApplicationEvent.h">
+      <Filter>ParasiteEngine\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ParasiteEngine\Events\Event.h">
+      <Filter>ParasiteEngine\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ParasiteEngine\Events\KeyEvent.h">
+      <Filter>ParasiteEngine\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ParasiteEngine\Events\MouseEvents.h">
+      <Filter>ParasiteEngine\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ParasiteEngine\Log.h">
+      <Filter>ParasiteEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ParasiteEngine\Platform\WindowsWindow.h">
+      <Filter>ParasiteEngine\Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ParasiteEngine\Window.h">
+      <Filter>ParasiteEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\pepch.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source\ParasiteEngine\Application.cpp">
+      <Filter>ParasiteEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ParasiteEngine\Log.cpp">
+      <Filter>ParasiteEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ParasiteEngine\Platform\WindowsWindow.cpp">
+      <Filter>ParasiteEngine\Platform</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\pepch.cpp" />
+  </ItemGroup>
+</Project>
