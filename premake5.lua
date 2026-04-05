@@ -54,7 +54,6 @@ project "ParasiteEngine"
 
 	filter "system:windows"
 		cppdialect "C++17"
-		staticruntime "On"
 		systemversion "latest"
 		staticruntime "Off"
 
@@ -66,7 +65,8 @@ project "ParasiteEngine"
 
 		postbuildcommands
 		{
-			("{COPYFILE} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox")
+			("{MKDIR} ../bin/" .. outputdir .. "/Sandbox/"),
+			("{COPYFILE} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox/")
 		}
 
 		filter "configurations:Debug"
