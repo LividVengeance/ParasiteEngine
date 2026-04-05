@@ -30,6 +30,7 @@ public:
 	CSandbox()
 	{
 		PushLayer(new CTestLayer());
+		PushOverlay(new Parasite::CImGuiLayer());
 	}
 
 	~CSandbox()

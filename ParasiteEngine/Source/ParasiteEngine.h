@@ -5,5 +5,6 @@
 #include "ParasiteEngine/Application.h"
 #include "ParasiteEngine/Log.h"
 #include "ParasiteEngine/Layer.h"
+#include "ParasiteEngine/ImGui/ImGuiLayer.h"
 
 #include "ParasiteEngine/EntryPoint.h"

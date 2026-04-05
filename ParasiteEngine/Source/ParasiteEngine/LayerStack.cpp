@@ -21,6 +21,7 @@ namespace Parasite
 	void CLayerStack::PushLayer(CLayer* InLayer)
 	{
 		LayerInsert = Layers.emplace(LayerInsert, InLayer);
+		InLayer->OnAttach();
 	}
 
 	void CLayerStack::PopLayer(CLayer* InLayer)
@@ -36,6 +37,7 @@ namespace Parasite
 	void CLayerStack::PushOverlay(CLayer* InOverlay)
 	{
 		Layers.emplace_back(InOverlay);
+		InOverlay->OnAttach();
 	}
 
 	void CLayerStack::PopOverlay(CLayer* InOverlay)

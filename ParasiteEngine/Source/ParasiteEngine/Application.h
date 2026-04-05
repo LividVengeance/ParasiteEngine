@@ -20,6 +20,9 @@ namespace Parasite
 		void PushLayer(CLayer* InLayer);
 		void PushOverlay(CLayer* InOverlay);
 
+		inline static CApplication& Get() { return *Instance; }
+		inline CWindow& GetWindow() { return *Window; }
+
 	private:
 		bool OnWindowClose(CWindowCloseEvent& InWindowCloseEvent);
 
@@ -28,6 +31,8 @@ namespace Parasite
 
 		std::unique_ptr<CWindow> Window;
 		bool bRunning = true;
+
+		static CApplication* Instance;
 	};
 
 	// To be defined in client

@@ -79,8 +79,8 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pepch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>PE_PLATFORM_WINDOWS;PE_BUILD_DLL;PE_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>Source;Vendor\spdlog\include;Vendor\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>PE_PLATFORM_WINDOWS;PE_BUILD_DLL;GLFW_INCLUDE_NONE;PE_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>Source;Vendor\spdlog\include;Vendor\GLFW\include;Vendor\Glad\include;Vendor\ImGui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -106,8 +106,8 @@ copy /B /Y ..\bin\Debug-windows-x86_64\ParasiteEngine\ParasiteEngine.dll ..\bin\
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pepch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>PE_PLATFORM_WINDOWS;PE_BUILD_DLL;PE_Release;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>Source;Vendor\spdlog\include;Vendor\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>PE_PLATFORM_WINDOWS;PE_BUILD_DLL;GLFW_INCLUDE_NONE;PE_Release;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>Source;Vendor\spdlog\include;Vendor\GLFW\include;Vendor\Glad\include;Vendor\ImGui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -137,8 +137,8 @@ copy /B /Y ..\bin\Release-windows-x86_64\ParasiteEngine\ParasiteEngine.dll ..\bi
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pepch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>PE_PLATFORM_WINDOWS;PE_BUILD_DLL;PE_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>Source;Vendor\spdlog\include;Vendor\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>PE_PLATFORM_WINDOWS;PE_BUILD_DLL;GLFW_INCLUDE_NONE;PE_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>Source;Vendor\spdlog\include;Vendor\GLFW\include;Vendor\Glad\include;Vendor\ImGui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -172,6 +172,7 @@ copy /B /Y ..\bin\Dist-windows-x86_64\ParasiteEngine\ParasiteEngine.dll ..\bin\D
     <ClInclude Include="Source\ParasiteEngine\Events\Event.h" />
     <ClInclude Include="Source\ParasiteEngine\Events\KeyEvent.h" />
     <ClInclude Include="Source\ParasiteEngine\Events\MouseEvents.h" />
+    <ClInclude Include="Source\ParasiteEngine\ImGui\ImGuiLayer.h" />
     <ClInclude Include="Source\ParasiteEngine\Layer.h" />
     <ClInclude Include="Source\ParasiteEngine\LayerStack.h" />
     <ClInclude Include="Source\ParasiteEngine\Log.h" />
@@ -181,6 +182,7 @@ copy /B /Y ..\bin\Dist-windows-x86_64\ParasiteEngine\ParasiteEngine.dll ..\bin\D
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\ParasiteEngine\Application.cpp" />
+    <ClCompile Include="Source\ParasiteEngine\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="Source\ParasiteEngine\Layer.cpp" />
     <ClCompile Include="Source\ParasiteEngine\LayerStack.cpp" />
     <ClCompile Include="Source\ParasiteEngine\Log.cpp" />
@@ -192,6 +194,12 @@ copy /B /Y ..\bin\Dist-windows-x86_64\ParasiteEngine\ParasiteEngine.dll ..\bin\D
   <ItemGroup>
     <ProjectReference Include="Vendor\GLFW\GLFW.vcxproj">
       <Project>{154B857C-0182-860D-AA6E-6C109684020F}</Project>
+    </ProjectReference>
+    <ProjectReference Include="Vendor\Glad\Glad.vcxproj">
+      <Project>{BDD6857C-A90D-870D-52FA-6C103E10030F}</Project>
+    </ProjectReference>
+    <ProjectReference Include="Vendor\ImGui\ImGui.vcxproj">
+      <Project>{C0FF640D-2C14-8DBE-F595-301E616989EF}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -2,15 +2,20 @@
 #include "Application.h"
 
 #include "ParasiteEngine/Log.h"
-
-#include "GLFW/glfw3.h"
 #include "Events/Event.h"
+
+#include "Glad/glad.h"
 
 
 namespace Parasite
 {
+	CApplication* CApplication::Instance = nullptr;
+
 	CApplication::CApplication()
 	{
+		PE_CORE_ASSERT(!Instance, "An Application already exists.");
+		Instance = this;
+
 		Window = std::unique_ptr<CWindow>(CWindow::Create());
 		Window->SetEventCallback(std::bind(&CApplication::OnEvent, this, std::placeholders::_1));
 	}
@@ -23,9 +28,6 @@ namespace Parasite
 	{
 		while (bRunning)
 		{
-			glClearColor(1, 0, 1, 1);
-			glClear(GL_COLOR_BUFFER_BIT);
-
 			for (CLayer* Layer : LayerStack)
 			{
 				Layer->OnUpdate();

@@ -7,7 +7,7 @@
 
 namespace Parasite
 {
-	class PARASITE_API CWindowsWindow :public CWindow
+	class PARASITE_API CWindowsWindow : public CWindow
 	{
 	public:
 		CWindowsWindow(const SWindowInfo& InInfo);

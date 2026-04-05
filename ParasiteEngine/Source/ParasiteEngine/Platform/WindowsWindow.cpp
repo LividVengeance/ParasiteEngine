@@ -8,6 +8,8 @@
 #include "ParasiteEngine/Events/KeyEvent.h"
 #include "ParasiteEngine/Events/MouseEvents.h"
 
+#include "Glad/glad.h"
+
 
 namespace Parasite
 {
@@ -62,6 +64,10 @@ namespace Parasite
 	
 		Window = glfwCreateWindow(static_cast<int>(WindowData.Width), static_cast<int>(WindowData.Height), WindowData.Title.c_str(), nullptr, nullptr);
 		glfwMakeContextCurrent(Window);
+		
+		const int Status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+		PE_CORE_ASSERT(Status, "Failed to initalize Glad");
+
 		glfwSetWindowUserPointer(Window, &WindowData);
 		SetVSyncEnabled(true);
 

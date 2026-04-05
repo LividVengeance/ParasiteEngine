@@ -11,7 +11,7 @@ namespace Parasite
 
 	void CLog::Init()
 	{
-		spdlog::set_pattern("%^[%T] %n: %n: %v%$");
+		spdlog::set_pattern("%^[%T] %n: %v%$");
 
 		s_CoreLogger = spdlog::stdout_color_mt("PARASITE");
 		s_CoreLogger->set_level(spdlog::level::trace);

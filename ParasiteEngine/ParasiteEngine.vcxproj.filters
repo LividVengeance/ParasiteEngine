@@ -7,6 +7,9 @@
     <Filter Include="ParasiteEngine\Events">
       <UniqueIdentifier>{98DE2229-044B-DE23-CD3E-7681396A008C}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ParasiteEngine\ImGui">
+      <UniqueIdentifier>{5E21C0F9-4AB0-49C3-F3CE-5DBEDF3C5A69}</UniqueIdentifier>
+    </Filter>
     <Filter Include="ParasiteEngine\Platform">
       <UniqueIdentifier>{08EC7219-7423-BBB0-7D2D-1FD4E9E3E1A9}</UniqueIdentifier>
     </Filter>
@@ -34,6 +37,9 @@
     <ClInclude Include="Source\ParasiteEngine\Events\MouseEvents.h">
       <Filter>ParasiteEngine\Events</Filter>
     </ClInclude>
+    <ClInclude Include="Source\ParasiteEngine\ImGui\ImGuiLayer.h">
+      <Filter>ParasiteEngine\ImGui</Filter>
+    </ClInclude>
     <ClInclude Include="Source\ParasiteEngine\Layer.h">
       <Filter>ParasiteEngine</Filter>
     </ClInclude>
@@ -54,6 +60,9 @@
   <ItemGroup>
     <ClCompile Include="Source\ParasiteEngine\Application.cpp">
       <Filter>ParasiteEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ParasiteEngine\ImGui\ImGuiLayer.cpp">
+      <Filter>ParasiteEngine\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="Source\ParasiteEngine\Layer.cpp">
       <Filter>ParasiteEngine</Filter>

@@ -13,9 +13,13 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 -- Include dir relative to solution dir (root dir)
 IncludeDir = {}
 IncludeDir["GLFW"] = "ParasiteEngine/Vendor/GLFW/include"
+IncludeDir["Glad"] = "ParasiteEngine/Vendor/Glad/include"
+IncludeDir["ImGui"] = "ParasiteEngine/Vendor/ImGui"
 
--- Add GLFW premake file
+-- Add premake files
 include "ParasiteEngine/Vendor/GLFW"
+include "ParasiteEngine/Vendor/Glad"
+include "ParasiteEngine/Vendor/ImGui"
 
 project "ParasiteEngine"
 	location "ParasiteEngine"
@@ -44,11 +48,15 @@ project "ParasiteEngine"
 		"%{prj.name}/Source",
 		"%{prj.name}/Vendor/spdlog/include",
 		"%{IncludeDir.GLFW}",
+		"%{IncludeDir.Glad}",
+		"%{IncludeDir.ImGui}",
 	}
 
 	links
 	{
 		"GLFW",
+		"Glad",
+		"ImGui",
 		"opengl32.lib",
 	}
 
@@ -61,6 +69,7 @@ project "ParasiteEngine"
 		{
 			"PE_PLATFORM_WINDOWS",
 			"PE_BUILD_DLL",
+			"GLFW_INCLUDE_NONE",
 		}
 
 		postbuildcommands

@@ -13,11 +13,11 @@ namespace Parasite
 		virtual ~CLayer();
 
 		virtual void OnAttach() {};
-		virtual void OnDettach() {};
+		virtual void OnDetach() {};
 		virtual void OnUpdate() {};
 		virtual void OnEvent(CEvent& InEvent) {};
 
-		inline const std::string GetName() const { return DebugName; }
+		inline const std::string& GetName() const { return DebugName; }
 
 	private:
 		std::string DebugName;
