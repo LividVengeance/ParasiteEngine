@@ -19,3 +19,5 @@
 #endif
 
 #define BIT(x) (1 << x)
+
+#define PE_BIND_EVENT_FUNC(InFunc) std::bind(&InFunc, this, std::placeholders::_1)

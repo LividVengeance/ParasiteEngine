@@ -165,6 +165,16 @@ namespace Parasite
 				Data.EventCallback(NewEvent);
 			}
 		);
+
+		glfwSetCharCallback(Window, 
+			[](GLFWwindow* InWindow, unsigned int InCodepoint)
+			{
+				SWindowData& Data = *static_cast<SWindowData*>(glfwGetWindowUserPointer(InWindow));
+
+				CTypedKeyEvent NewEvent(InCodepoint);
+				Data.EventCallback(NewEvent);
+			}
+		);
 	}
 
 	void CWindowsWindow::Shutdown()

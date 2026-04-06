@@ -9,7 +9,7 @@ namespace Parasite
 	{
 		None = 0,
 		WindowClose, WindowResize, WindowFoucs, WindowLostFocus, WindowMoved,
-		KeyPressed, KeyReleased,
+		KeyPressed, KeyReleased, KeyTyped,
 		MousePressed, MouseReleased, MouseMove, MouseScroll,
 	};
 

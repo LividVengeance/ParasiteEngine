@@ -64,4 +64,21 @@ namespace Parasite
 
 		EVENT_CLASS_TYPE(KeyReleased);
 	};
+
+
+	class PARASITE_API CTypedKeyEvent : public CKeyEvent
+	{
+	public:
+		CTypedKeyEvent(int InKeyCode)
+			: CKeyEvent(InKeyCode)
+		{
+		}
+
+		virtual std::string ToString() const override
+		{
+			return "Typed Key Event";
+		}
+
+		EVENT_CLASS_TYPE(KeyTyped);
+	};
 }
