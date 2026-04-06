@@ -13,6 +13,9 @@
     <Filter Include="ParasiteEngine\Platform">
       <UniqueIdentifier>{08EC7219-7423-BBB0-7D2D-1FD4E9E3E1A9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ParasiteEngine\Platform\Windows">
+      <UniqueIdentifier>{421E904D-AE01-9F8D-B704-CDC9236765DE}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\ParasiteEngine.h" />
@@ -40,6 +43,9 @@
     <ClInclude Include="Source\ParasiteEngine\ImGui\ImGuiLayer.h">
       <Filter>ParasiteEngine\ImGui</Filter>
     </ClInclude>
+    <ClInclude Include="Source\ParasiteEngine\Input.h">
+      <Filter>ParasiteEngine</Filter>
+    </ClInclude>
     <ClInclude Include="Source\ParasiteEngine\Layer.h">
       <Filter>ParasiteEngine</Filter>
     </ClInclude>
@@ -49,8 +55,11 @@
     <ClInclude Include="Source\ParasiteEngine\Log.h">
       <Filter>ParasiteEngine</Filter>
     </ClInclude>
-    <ClInclude Include="Source\ParasiteEngine\Platform\WindowsWindow.h">
-      <Filter>ParasiteEngine\Platform</Filter>
+    <ClInclude Include="Source\ParasiteEngine\Platform\Windows\WindowsInput.h">
+      <Filter>ParasiteEngine\Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ParasiteEngine\Platform\Windows\WindowsWindow.h">
+      <Filter>ParasiteEngine\Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="Source\ParasiteEngine\Window.h">
       <Filter>ParasiteEngine</Filter>
@@ -73,8 +82,11 @@
     <ClCompile Include="Source\ParasiteEngine\Log.cpp">
       <Filter>ParasiteEngine</Filter>
     </ClCompile>
-    <ClCompile Include="Source\ParasiteEngine\Platform\WindowsWindow.cpp">
-      <Filter>ParasiteEngine\Platform</Filter>
+    <ClCompile Include="Source\ParasiteEngine\Platform\Windows\WindowsInput.cpp">
+      <Filter>ParasiteEngine\Platform\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ParasiteEngine\Platform\Windows\WindowsWindow.cpp">
+      <Filter>ParasiteEngine\Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="Source\pepch.cpp" />
   </ItemGroup>

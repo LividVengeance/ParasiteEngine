@@ -6,6 +6,7 @@
 
 #include "Glad/glad.h"
 
+#include "Input.h"
 
 namespace Parasite
 {
@@ -33,6 +34,9 @@ namespace Parasite
 				Layer->OnUpdate();
 			}
 
+			auto [PosX, PosY] = CInput::GetMousePosition();
+			PE_CORE_LOG("{0}, {1}", PosX, PosY);
+
 			Window->Update();
 		}
 	}
@@ -41,8 +45,6 @@ namespace Parasite
 	{
 		CEventDispatcher EventDispatcher(InEvent);
 		EventDispatcher.Dispatch<CWindowCloseEvent>(std::bind(&CApplication::OnWindowClose, this, std::placeholders::_1));
-
-		PE_CORE_LOG("Event: {}", InEvent.ToString());
 	
 		for (auto It = LayerStack.end(); It != LayerStack.begin(); )
 		{

@@ -14,12 +14,10 @@ public:
 
 	virtual void OnUpdate() override
 	{
-		PE_LOG("CTestLayer::Update");
 	}
 
 	virtual void OnEvent(Parasite::CEvent& InEvent)
 	{
-		PE_LOG("{0}", InEvent.ToString());
 	}
 };
 

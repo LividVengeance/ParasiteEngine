@@ -145,7 +145,7 @@ namespace Parasite
 	bool CImGuiLayer::OnWindowResize(CWindowResizeEvent& InEvent)
 	{
 		ImGuiIO& IO = ImGui::GetIO();
-		IO.DisplaySize = ImVec2(InEvent.GetWidth(), InEvent.GetHeight());
+		IO.DisplaySize = ImVec2(static_cast<float>(InEvent.GetWidth()), static_cast<float>(InEvent.GetHeight()));
 		IO.DisplayFramebufferScale = ImVec2(1.0f, 1.0f);
 		glViewport(0, 0, InEvent.GetWidth(), InEvent.GetHeight());
 

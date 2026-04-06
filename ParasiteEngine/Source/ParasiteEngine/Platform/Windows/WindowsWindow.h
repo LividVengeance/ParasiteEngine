@@ -5,6 +5,7 @@
 
 #include "GLFW/glfw3.h"
 
+
 namespace Parasite
 {
 	class PARASITE_API CWindowsWindow : public CWindow
@@ -21,6 +22,8 @@ namespace Parasite
 		virtual void SetEventCallback(const EventCallbackFunc& InCallbackFunc) override { WindowData.EventCallback = InCallbackFunc; };
 		virtual void SetVSyncEnabled(bool bInEnabled) override;
 		virtual bool IsVSyncEnabled() const override { return WindowData.bVSyncEnabled; };
+
+		inline virtual void* GetNativeWindow() const override { return Window; }
 
 	private:
 		void Init(const SWindowInfo& InInfo);

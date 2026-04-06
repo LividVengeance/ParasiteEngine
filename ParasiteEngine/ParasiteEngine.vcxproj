@@ -84,7 +84,7 @@
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
-      <AdditionalOptions>/utf-8 /MDd %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
@@ -97,8 +97,7 @@
     <ProjectReference>
     </ProjectReference>
     <PostBuildEvent>
-      <Command>IF NOT EXIST ..\bin\Debug-windows-x86_64\Sandbox (mkdir ..\bin\Debug-windows-x86_64\Sandbox)
-copy /B /Y ..\bin\Debug-windows-x86_64\ParasiteEngine\ParasiteEngine.dll ..\bin\Debug-windows-x86_64\Sandbox</Command>
+      <Command>IF EXIST ..\bin\Debug-windows-x86_64\ParasiteEngine\ParasiteEngine.dll\ (xcopy /Q /E /Y /I ..\bin\Debug-windows-x86_64\ParasiteEngine\ParasiteEngine.dll "..\bin\Debug-windows-x86_64\Sandbox\" &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Debug-windows-x86_64\ParasiteEngine\ParasiteEngine.dll "..\bin\Debug-windows-x86_64\Sandbox\" &gt; nul)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -114,7 +113,7 @@ copy /B /Y ..\bin\Debug-windows-x86_64\ParasiteEngine\ParasiteEngine.dll ..\bin\
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-      <AdditionalOptions>/utf-8 /MD %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
@@ -128,8 +127,7 @@ copy /B /Y ..\bin\Debug-windows-x86_64\ParasiteEngine\ParasiteEngine.dll ..\bin\
     <ProjectReference>
     </ProjectReference>
     <PostBuildEvent>
-      <Command>IF NOT EXIST ..\bin\Release-windows-x86_64\Sandbox (mkdir ..\bin\Release-windows-x86_64\Sandbox)
-copy /B /Y ..\bin\Release-windows-x86_64\ParasiteEngine\ParasiteEngine.dll ..\bin\Release-windows-x86_64\Sandbox</Command>
+      <Command>IF EXIST ..\bin\Release-windows-x86_64\ParasiteEngine\ParasiteEngine.dll\ (xcopy /Q /E /Y /I ..\bin\Release-windows-x86_64\ParasiteEngine\ParasiteEngine.dll "..\bin\Release-windows-x86_64\Sandbox\" &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Release-windows-x86_64\ParasiteEngine\ParasiteEngine.dll "..\bin\Release-windows-x86_64\Sandbox\" &gt; nul)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">
@@ -145,7 +143,7 @@ copy /B /Y ..\bin\Release-windows-x86_64\ParasiteEngine\ParasiteEngine.dll ..\bi
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-      <AdditionalOptions>/utf-8 /MD %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
@@ -159,8 +157,7 @@ copy /B /Y ..\bin\Release-windows-x86_64\ParasiteEngine\ParasiteEngine.dll ..\bi
     <ProjectReference>
     </ProjectReference>
     <PostBuildEvent>
-      <Command>IF NOT EXIST ..\bin\Dist-windows-x86_64\Sandbox (mkdir ..\bin\Dist-windows-x86_64\Sandbox)
-copy /B /Y ..\bin\Dist-windows-x86_64\ParasiteEngine\ParasiteEngine.dll ..\bin\Dist-windows-x86_64\Sandbox</Command>
+      <Command>IF EXIST ..\bin\Dist-windows-x86_64\ParasiteEngine\ParasiteEngine.dll\ (xcopy /Q /E /Y /I ..\bin\Dist-windows-x86_64\ParasiteEngine\ParasiteEngine.dll "..\bin\Dist-windows-x86_64\Sandbox\" &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Dist-windows-x86_64\ParasiteEngine\ParasiteEngine.dll "..\bin\Dist-windows-x86_64\Sandbox\" &gt; nul)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -173,10 +170,12 @@ copy /B /Y ..\bin\Dist-windows-x86_64\ParasiteEngine\ParasiteEngine.dll ..\bin\D
     <ClInclude Include="Source\ParasiteEngine\Events\KeyEvent.h" />
     <ClInclude Include="Source\ParasiteEngine\Events\MouseEvents.h" />
     <ClInclude Include="Source\ParasiteEngine\ImGui\ImGuiLayer.h" />
+    <ClInclude Include="Source\ParasiteEngine\Input.h" />
     <ClInclude Include="Source\ParasiteEngine\Layer.h" />
     <ClInclude Include="Source\ParasiteEngine\LayerStack.h" />
     <ClInclude Include="Source\ParasiteEngine\Log.h" />
-    <ClInclude Include="Source\ParasiteEngine\Platform\WindowsWindow.h" />
+    <ClInclude Include="Source\ParasiteEngine\Platform\Windows\WindowsInput.h" />
+    <ClInclude Include="Source\ParasiteEngine\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="Source\ParasiteEngine\Window.h" />
     <ClInclude Include="Source\pepch.h" />
   </ItemGroup>
@@ -186,7 +185,8 @@ copy /B /Y ..\bin\Dist-windows-x86_64\ParasiteEngine\ParasiteEngine.dll ..\bin\D
     <ClCompile Include="Source\ParasiteEngine\Layer.cpp" />
     <ClCompile Include="Source\ParasiteEngine\LayerStack.cpp" />
     <ClCompile Include="Source\ParasiteEngine\Log.cpp" />
-    <ClCompile Include="Source\ParasiteEngine\Platform\WindowsWindow.cpp" />
+    <ClCompile Include="Source\ParasiteEngine\Platform\Windows\WindowsInput.cpp" />
+    <ClCompile Include="Source\ParasiteEngine\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="Source\pepch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>

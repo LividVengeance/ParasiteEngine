@@ -1,5 +1,6 @@
 workspace "ParasiteEngine"
 	architecture "x64"
+	startproject "Sandbox"
 
 	configurations
 	{
@@ -21,10 +22,12 @@ include "ParasiteEngine/Vendor/GLFW"
 include "ParasiteEngine/Vendor/Glad"
 include "ParasiteEngine/Vendor/ImGui"
 
+
 project "ParasiteEngine"
 	location "ParasiteEngine"
 	kind "SharedLib"
 	language "C++"
+	staticruntime "off"
 
 	buildoptions 
 	{ 
@@ -63,7 +66,6 @@ project "ParasiteEngine"
 	filter "system:windows"
 		cppdialect "C++17"
 		systemversion "latest"
-		staticruntime "Off"
 
 		defines
 		{
@@ -74,23 +76,22 @@ project "ParasiteEngine"
 
 		postbuildcommands
 		{
-			("{MKDIR} ../bin/" .. outputdir .. "/Sandbox/"),
-			("{COPYFILE} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox/")
+			("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/Sandbox/\"")
 		}
 
 		filter "configurations:Debug"
 			defines "PE_DEBUG"
-			buildoptions "/MDd"
+			runtime "Debug"
 			symbols "On"
 
 		filter "configurations:Release"
 			defines "PE_Release"
-			buildoptions "/MD"
+			runtime "Release"
 			optimize "On"
 
 		filter "configurations:Dist"
 			defines "PE_DIST"
-			buildoptions "/MD"
+			runtime "Release"
 			optimize "On"
 
 
@@ -98,6 +99,7 @@ project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp"
 	language "C++"
+	staticruntime "off"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -126,7 +128,6 @@ project "Sandbox"
 
 	filter "system:windows"
 		cppdialect "C++17"
-		staticruntime "On"
 		systemversion "latest"
 
 		defines
@@ -136,15 +137,15 @@ project "Sandbox"
 
 		filter "configurations:Debug"
 			defines "PE_DEBUG"
-			buildoptions "/MDd"
+			runtime "Debug"
 			symbols "On"
 
 		filter "configurations:Release"
 			defines "PE_Release"
-			buildoptions "/MD"
+			runtime "Release"
 			optimize "On"
 
 		filter "configurations:Dist"
 			defines "PE_DIST"
-			buildoptions "/MD"
+			runtime "Release"
 			optimize "On"

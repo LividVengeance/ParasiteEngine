@@ -45,6 +45,8 @@ namespace Parasite
 		virtual void SetVSyncEnabled(bool bInEnabled) = 0;
 		virtual bool IsVSyncEnabled() const = 0;
 
+		virtual void* GetNativeWindow() const = 0;
+
 		static CWindow* Create(const SWindowInfo& InInfo = SWindowInfo());
 	};
 }
