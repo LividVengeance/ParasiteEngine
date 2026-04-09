@@ -8,7 +8,7 @@
 #include "ParasiteEngine/Events/KeyEvent.h"
 #include "ParasiteEngine/Events/MouseEvents.h"
 
-#include "Glad/glad.h"
+#include "ParasiteEngine/Platform/OpenGL/OpenGLContext.h"
 
 
 namespace Parasite
@@ -38,7 +38,7 @@ namespace Parasite
 	void CWindowsWindow::Update()
 	{
 		glfwPollEvents();
-		glfwSwapBuffers(Window);
+		Context->SwapBuffers();
 	}
 	
 	void CWindowsWindow::SetVSyncEnabled(bool bInEnabled)
@@ -63,10 +63,9 @@ namespace Parasite
 		}
 	
 		Window = glfwCreateWindow(static_cast<int>(WindowData.Width), static_cast<int>(WindowData.Height), WindowData.Title.c_str(), nullptr, nullptr);
-		glfwMakeContextCurrent(Window);
 		
-		const int Status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-		PE_CORE_ASSERT(Status, "Failed to initalize Glad");
+		Context = new COpenGLContext(Window);
+		Context->Init();
 
 		glfwSetWindowUserPointer(Window, &WindowData);
 		SetVSyncEnabled(true);

@@ -13,8 +13,14 @@
     <Filter Include="ParasiteEngine\Platform">
       <UniqueIdentifier>{08EC7219-7423-BBB0-7D2D-1FD4E9E3E1A9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ParasiteEngine\Platform\OpenGL">
+      <UniqueIdentifier>{3CBCDCB9-28E2-A620-1128-2CECFDECCBEC}</UniqueIdentifier>
+    </Filter>
     <Filter Include="ParasiteEngine\Platform\Windows">
       <UniqueIdentifier>{421E904D-AE01-9F8D-B704-CDC9236765DE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ParasiteEngine\Renderer">
+      <UniqueIdentifier>{5AF34FF4-C62A-988B-CF34-FCAE3BEBBE84}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -61,11 +67,17 @@
     <ClInclude Include="Source\ParasiteEngine\MouseButtonCodes.h">
       <Filter>ParasiteEngine</Filter>
     </ClInclude>
+    <ClInclude Include="Source\ParasiteEngine\Platform\OpenGL\OpenGLContext.h">
+      <Filter>ParasiteEngine\Platform\OpenGL</Filter>
+    </ClInclude>
     <ClInclude Include="Source\ParasiteEngine\Platform\Windows\WindowsInput.h">
       <Filter>ParasiteEngine\Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="Source\ParasiteEngine\Platform\Windows\WindowsWindow.h">
       <Filter>ParasiteEngine\Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ParasiteEngine\Renderer\GraphicContext.h">
+      <Filter>ParasiteEngine\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="Source\ParasiteEngine\Window.h">
       <Filter>ParasiteEngine</Filter>
@@ -90,6 +102,9 @@
     </ClCompile>
     <ClCompile Include="Source\ParasiteEngine\Log.cpp">
       <Filter>ParasiteEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ParasiteEngine\Platform\OpenGL\OpenGLContext.cpp">
+      <Filter>ParasiteEngine\Platform\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="Source\ParasiteEngine\Platform\Windows\WindowsInput.cpp">
       <Filter>ParasiteEngine\Platform\Windows</Filter>

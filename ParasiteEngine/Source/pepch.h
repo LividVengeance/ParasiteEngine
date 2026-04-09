@@ -12,6 +12,8 @@
 #include "unordered_map"
 #include "unordered_set"
 
+#include "ParasiteEngine/Log.h"
+
 
 #ifdef PE_PLATFORM_WINDOWS
 	#include "Windows.h"

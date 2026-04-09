@@ -5,6 +5,8 @@
 
 #include "GLFW/glfw3.h"
 
+#include "ParasiteEngine/Renderer/GraphicContext.h"
+
 
 namespace Parasite
 {
@@ -31,6 +33,7 @@ namespace Parasite
 
 	private:
 		GLFWwindow* Window;
+		CGraphicContext* Context;
 
 		struct SWindowData
 		{

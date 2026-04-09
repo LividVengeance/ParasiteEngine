@@ -167,8 +167,10 @@
     <ClInclude Include="Source\ParasiteEngine\LayerStack.h" />
     <ClInclude Include="Source\ParasiteEngine\Log.h" />
     <ClInclude Include="Source\ParasiteEngine\MouseButtonCodes.h" />
+    <ClInclude Include="Source\ParasiteEngine\Platform\OpenGL\OpenGLContext.h" />
     <ClInclude Include="Source\ParasiteEngine\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="Source\ParasiteEngine\Platform\Windows\WindowsWindow.h" />
+    <ClInclude Include="Source\ParasiteEngine\Renderer\GraphicContext.h" />
     <ClInclude Include="Source\ParasiteEngine\Window.h" />
     <ClInclude Include="Source\pepch.h" />
   </ItemGroup>
@@ -179,6 +181,7 @@
     <ClCompile Include="Source\ParasiteEngine\Layer.cpp" />
     <ClCompile Include="Source\ParasiteEngine\LayerStack.cpp" />
     <ClCompile Include="Source\ParasiteEngine\Log.cpp" />
+    <ClCompile Include="Source\ParasiteEngine\Platform\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="Source\ParasiteEngine\Platform\Windows\WindowsInput.cpp" />
     <ClCompile Include="Source\ParasiteEngine\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="Source\pepch.cpp">

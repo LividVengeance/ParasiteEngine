@@ -34,6 +34,8 @@ namespace Parasite
 		CImGuiLayer* ImGuiLayer;
 		bool bRunning = true;
 
+		unsigned int VertexArray, VertexBuffer, IndexBuffer;
+
 		static CApplication* Instance;
 	};
 
