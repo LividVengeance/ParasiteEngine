@@ -21,36 +21,115 @@ namespace Parasite
 
 		Window = std::unique_ptr<CWindow>(CWindow::Create());
 		Window->SetEventCallback(std::bind(&CApplication::OnEvent, this, std::placeholders::_1));
-	
+
 		ImGuiLayer = new CImGuiLayer();
 		PushOverlay(ImGuiLayer);
+		
+		VertexArray.reset(CVertexArray::Create());
 
-		glGenVertexArrays(1, &VertexArray);
-		glBindVertexArray(VertexArray);
-
-		glGenBuffers(1, &VertexBuffer);
-		glBindBuffer(GL_ARRAY_BUFFER, VertexBuffer);
-
-		float Vertices[3 * 3] =
+		float Vertices[3 * 7] =
 		{
-			-0.5f, -0.5f, 0.0f,
-			 0.5f, -0.5f, 0.0f,
-			 0.0f, 0.5f, 0.0f,
+			-0.5f, -0.5f, 0.0f,			0.8f, 0.2f, 0.8f, 1.f,
+			 0.5f, -0.5f, 0.0f,			0.2f, 0.3f, 0.8f, 1.f,
+			 0.0f, 0.5f, 0.0f,			0.8f, 0.8f, 0.2f, 1.f,
 		};
 
-		glBufferData(GL_ARRAY_BUFFER, sizeof(Vertices), Vertices, GL_STATIC_DRAW);
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
-
-		glGenBuffers(1, &IndexBuffer);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IndexBuffer);
-
-		unsigned int Indices[3] =
+		std::shared_ptr<CVertexBuffer> VertexBuffer;
+		VertexBuffer.reset(CVertexBuffer::Create(Vertices, sizeof(Vertices)));
+		CBufferLayout BufferLayout = 
 		{
-			0, 1, 2
+			{ EShaderDataType::Float3, "a_Position" },
+			{ EShaderDataType::Float4, "a_Color" },
+		};
+		VertexBuffer->SetLayout(BufferLayout);
+		VertexArray->AddVertexBuffer(VertexBuffer);
+
+		uint32_t Indices[3] = { 0, 1, 2 };
+		std::shared_ptr<CIndexBuffer> IndexBuffer;
+		IndexBuffer.reset(CIndexBuffer::Create(Indices, 3));
+		VertexArray->SetIndexBuffer(IndexBuffer);
+
+		SquareVertexArray.reset(CVertexArray::Create());
+
+		float SquareVertices[3 * 4] =
+		{
+			-0.75f,		-0.75f, 0.0f,
+			 0.75f,		-0.75f, 0.0f,
+			 0.75f,		 0.75f, 0.0f,
+			-0.75f,		 0.75f, 0.0f,
 		};
 
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(Indices), Indices, GL_STATIC_DRAW);
+		std::shared_ptr<CVertexBuffer> SquareVertexBuffer;
+		SquareVertexBuffer.reset(CVertexBuffer::Create(SquareVertices, sizeof(SquareVertices)));
+		SquareVertexBuffer->SetLayout({
+				{ EShaderDataType::Float3, "a_Position" },
+		});
+		SquareVertexArray->AddVertexBuffer(SquareVertexBuffer);
+
+		uint32_t SqaureIndices[6] = { 0, 1, 2, 2, 3, 0};
+		std::shared_ptr<CIndexBuffer> SqaureIndexBuffer;
+		SqaureIndexBuffer.reset(CIndexBuffer::Create(SqaureIndices, sizeof(SqaureIndices) / sizeof(uint32_t)));
+		SquareVertexArray->SetIndexBuffer(SqaureIndexBuffer);
+
+		std::string VertexSource = R"(
+			#version 330 core
+
+			layout(location = 0) in vec3 a_Position;
+			layout(location = 1) in vec4 a_Color;
+
+			out vec3 v_Position;
+			out vec4 v_Color;
+
+			void main()
+			{
+				v_Position = a_Position;
+				v_Color = a_Color;
+				gl_Position = vec4(a_Position, 1.0);
+			}
+		)";
+
+		std::string FragmentSource = R"(
+			#version 330 core
+
+			layout(location = 0) out vec4 color;
+			in vec3 v_Position;
+			in vec4 v_Color;
+
+			void main()
+			{
+				color = vec4(v_Position* 0.5 + 0.5, 1.0);
+				color = v_Color;	
+			}
+		)";
+
+		std::string VertexSource2 = R"(
+			#version 330 core
+
+			layout(location = 0) in vec3 a_Position;
+
+			out vec3 v_Position;
+
+			void main()
+			{
+				v_Position = a_Position;
+				gl_Position = vec4(a_Position, 1.0);
+			}
+		)";
+
+		std::string FragmentSource2 = R"(
+			#version 330 core
+
+			layout(location = 0) out vec4 color;
+			in vec3 v_Position;
+
+			void main()
+			{
+				color = vec4(0.2, 0.3, 0.8, 1.0);	
+			}
+		)";
+
+		Shader.reset(new CShader(VertexSource, FragmentSource));
+		BlueShader.reset(new CShader(VertexSource2, FragmentSource2));
 	}
 
 	CApplication::~CApplication()
@@ -64,8 +143,13 @@ namespace Parasite
 			glClearColor(0.1f, 0.1f, 0.1f, 1);
 			glClear(GL_COLOR_BUFFER_BIT);
 
-			glBindVertexArray(VertexArray);
-			glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
+			BlueShader->Bind();
+			SquareVertexArray->Bind();
+			glDrawElements(GL_TRIANGLES, SquareVertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+
+			Shader->Bind();
+			VertexArray->Bind();
+			glDrawElements(GL_TRIANGLES, VertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
 
 			for (CLayer* Layer : LayerStack)
 			{
@@ -79,11 +163,6 @@ namespace Parasite
 			}
 			ImGuiLayer->End();
 
-			if (Parasite::CInput::IsKeyPressed(PE_KEY_A))
-			{
-				PE_CORE_LOG("Pressed A!");
-			}
-
 			Window->Update();
 		}
 	}
@@ -92,10 +171,10 @@ namespace Parasite
 	{
 		CEventDispatcher EventDispatcher(InEvent);
 		EventDispatcher.Dispatch<CWindowCloseEvent>(std::bind(&CApplication::OnWindowClose, this, std::placeholders::_1));
-	
+
 		for (auto It = LayerStack.end(); It != LayerStack.begin(); )
 		{
-			if (CLayer * Layer = *--It)
+			if (CLayer* Layer = *--It)
 			{
 				Layer->OnEvent(InEvent);
 				if (InEvent.IsHandled())
