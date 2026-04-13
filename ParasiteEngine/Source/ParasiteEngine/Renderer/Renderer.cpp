@@ -9,6 +9,11 @@ namespace Parasite
 {
 	CRenderer::SSceneData* CRenderer::SceneData = new CRenderer::SSceneData();
 
+	void CRenderer::Init()
+	{
+		CRenderCommand::Init();
+	}
+
 	void CRenderer::BeginScene(COrthographicCamera& InCamera)
 	{
 		SceneData->ViewProjectionMatrix = InCamera.GetViewProjectionMatrix();

@@ -7,6 +7,11 @@ namespace Parasite
 	class CRenderCommand
 	{
 	public:
+		inline static void Init()
+		{
+			RendererAPI->Init();
+		}
+
 		inline static void DrawIndexed(const TSharedPtr<CVertexArray>& InVertexArray)
 		{
 			RendererAPI->DrawIndexed(InVertexArray);

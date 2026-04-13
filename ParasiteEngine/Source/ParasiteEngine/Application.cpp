@@ -5,6 +5,7 @@
 #include "ParasiteEngine/Log.h"
 #include "ParasiteEngine/KeyCodes.h"
 #include "ParasiteEngine/Core/Timestep.h"
+#include "Renderer/Renderer.h"
 
 #include "GLFW/glfw3.h"
 
@@ -20,6 +21,8 @@ namespace Parasite
 
 		Window = TWeakPtr<CWindow>(CWindow::Create());
 		Window->SetEventCallback(std::bind(&CApplication::OnEvent, this, std::placeholders::_1));
+
+		CRenderer::Init();
 
 		ImGuiLayer = new CImGuiLayer();
 		PushOverlay(ImGuiLayer);

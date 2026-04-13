@@ -16,6 +16,8 @@ namespace Parasite
 		};
 
 	public:
+		virtual void Init() = 0;
+
 		virtual void SetClearColour(const glm::vec4& InColour) = 0;
 		virtual void Clear() = 0;
 

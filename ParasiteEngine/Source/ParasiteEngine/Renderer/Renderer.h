@@ -10,6 +10,8 @@ namespace Parasite
 	class CRenderer
 	{
 	public:
+		static void Init();
+
 		static void BeginScene(COrthographicCamera& InCamera);
 		static void EndScene();
 

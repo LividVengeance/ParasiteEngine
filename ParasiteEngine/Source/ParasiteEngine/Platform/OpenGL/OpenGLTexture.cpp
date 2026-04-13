@@ -18,13 +18,29 @@ namespace Parasite
 		Width = LoadedWidth;
 		Height = LoadedHeight;
 
+		GLenum OpenGLFormat, DataFormat = 0;
+		if (Channels == 4)
+		{
+			OpenGLFormat = GL_RGBA8;
+			DataFormat = GL_RGBA;
+		}
+		else if (Channels == 3)
+		{
+			OpenGLFormat = GL_RGB8;
+			DataFormat = GL_RGB;
+		}
+		else
+		{
+			PE_CORE_ASSERT(false, "Format not supported.");
+		}
+
 		glCreateTextures(GL_TEXTURE_2D, 1, &RendererID);
-		glTextureStorage2D(RendererID, 1, GL_RGB8, Width, Height);
+		glTextureStorage2D(RendererID, 1, OpenGLFormat, Width, Height);
 
 		glTextureParameteri(RendererID, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTextureParameteri(RendererID, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
-		glTextureSubImage2D(RendererID, 0, 0, 0, Width, Height, GL_RGB, GL_UNSIGNED_BYTE, Data);
+		glTextureSubImage2D(RendererID, 0, 0, 0, Width, Height, DataFormat, GL_UNSIGNED_BYTE, Data);
 
 		stbi_image_free(Data);
 	}

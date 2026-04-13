@@ -7,6 +7,8 @@ namespace Parasite
 	class COpenGLRendererAPI : public CRendererAPI
 	{
 	public:
+		virtual void Init() override;
+
 		virtual void SetClearColour(const glm::vec4& InColour) override;
 		virtual void Clear() override;
 

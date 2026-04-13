@@ -9,6 +9,7 @@
 
 using namespace Parasite;
 
+
 class CTestLayer : public Parasite::CLayer
 {
 public:
@@ -167,7 +168,8 @@ public:
 		TextureShader.reset(CShader::Create(TextureVertexSource, TextureFragmentSource));
 		FlatColourShader.reset(CShader::Create(FlatColourVertexSource, FlatColourFragmentSource));
 
-		//Texture = CTexture2D::Create("E:/Projects/ParasiteEngine/Assets/Textures/Screenshot.png");
+		Texture = CTexture2D::Create("Assets/Textures/Checkerboard.png");
+		Texture2 = CTexture2D::Create("Assets/Textures/Checkerboard2.png");
 
 		std::dynamic_pointer_cast<COpenGLShader>(TextureShader)->Bind();
 		std::dynamic_pointer_cast<COpenGLShader>(TextureShader)->UploadUniformInt("u_Texture", 0);
@@ -221,7 +223,11 @@ public:
 		Texture->Bind();
 		CRenderer::Submit(TextureShader, SquareVertexArray, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
-		//CRenderer::Submit(Shader, VertexArray);
+		Texture2->Bind();
+		CRenderer::Submit(TextureShader, SquareVertexArray, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+
+
+		CRenderer::Submit(Shader, VertexArray);
 
 		CRenderer::EndScene();
 	}
@@ -245,7 +251,7 @@ private:
 
 	TSharedPtr<CShader> FlatColourShader, TextureShader;
 	TSharedPtr<CVertexArray> SquareVertexArray;
-	TSharedPtr<CTexture2D> Texture;
+	TSharedPtr<CTexture2D> Texture, Texture2;
 
 	COrthographicCamera OrthoCamera;
 	glm::vec3 CameraPosition = {0.0f, 0.0f, 0.0f};
