@@ -7,12 +7,22 @@
 
 namespace Parasite
 {
+	CShader* CShader::Create(const std::string& InFilePath)
+	{
+		switch (CRenderer::GetRendererAPI())
+		{
+			case CRendererAPI::EAPI::None: return nullptr;
+			case CRendererAPI::EAPI::OpenGL: return new COpenGLShader(InFilePath);
+		}
+		return nullptr;
+	}
+	
 	CShader* CShader::Create(const std::string& InVertexSource, const std::string& InFragmentSource)
 	{
 		switch (CRenderer::GetRendererAPI())
 		{
-		case CRendererAPI::EAPI::None: return nullptr;
-		case CRendererAPI::EAPI::OpenGL: return new COpenGLShader(InVertexSource, InFragmentSource);
+			case CRendererAPI::EAPI::None: return nullptr;
+			case CRendererAPI::EAPI::OpenGL: return new COpenGLShader(InVertexSource, InFragmentSource);
 		}
 		return nullptr;
 	}

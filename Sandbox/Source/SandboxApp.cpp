@@ -130,42 +130,8 @@ public:
 			}
 		)";
 
-		std::string TextureVertexSource = R"(
-			#version 330 core
-
-			layout(location = 0) in vec3 a_Position;
-			layout(location = 1) in vec2 a_TexCoord;
-
-			uniform mat4 u_ViewProjection;
-			uniform mat4 u_Transform;
-
-			out vec2 v_TexCoord;
-
-			void main()
-			{
-				v_TexCoord = a_TexCoord;
-				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
-			}
-		)";
-
-		std::string TextureFragmentSource = R"(
-			#version 330 core
-
-			layout(location = 0) out vec4 color;
-
-			in vec3 v_Position;
-			in vec2 v_TexCoord;
-
-			uniform sampler2D u_Texture;
-
-			void main()
-			{
-				color = texture(u_Texture, v_TexCoord);
-			}
-		)";
-
 		Shader.reset(CShader::Create(VertexSource, FragmentSource));
-		TextureShader.reset(CShader::Create(TextureVertexSource, TextureFragmentSource));
+		TextureShader.reset(CShader::Create("E:/Projects/ParasiteEngine/Sandbox/Assets/Shaders/Texture.glsl"));
 		FlatColourShader.reset(CShader::Create(FlatColourVertexSource, FlatColourFragmentSource));
 
 		Texture = CTexture2D::Create("Assets/Textures/Checkerboard.png");
@@ -180,28 +146,12 @@ public:
 	{
 		const float Speed = CameraSpeed *InTimestep;
 		const float RotSpeed = RotationSpeed *InTimestep;
-		if (CInput::IsKeyPressed(PE_KEY_D))
-		{
-			CameraPosition.x += Speed;
-		}
-		if (CInput::IsKeyPressed(PE_KEY_A))
-		{
-			CameraPosition.x -= Speed;
-		}
-		if (CInput::IsKeyPressed(PE_KEY_UP))
-		{
-			CameraRotation += RotSpeed;
-		}
-		if (CInput::IsKeyPressed(PE_KEY_DOWN))
-		{
-			CameraRotation -= RotSpeed;
-		}
 
 		CRenderCommand::SetClearColour(glm::vec4(0.1f, 0.1f, 0.1f, 1));
 		CRenderCommand::Clear();
 
-		OrthoCamera.SetPosition(CameraPosition);
-		OrthoCamera.SetRotation(CameraRotation);
+		//OrthoCamera.SetPosition(CameraPosition);
+		//OrthoCamera.SetRotation(CameraRotation, 0.0f);
 
 		CRenderer::BeginScene(OrthoCamera);
 
@@ -214,7 +164,7 @@ public:
 		{
 			for (int X = 0; X < 20; X++)
 			{
-				glm::vec3 Position = glm::vec3(X * 0.11f, Y * 0.11f, 0.0f);
+				glm::vec3 Position = glm::vec3(X * 0.11f, Y * 0.11f, -1.0f);
 				glm::mat4 Transform = glm::translate(glm::mat4(1.0f), Position) * Scale;
 				CRenderer::Submit(FlatColourShader, SquareVertexArray, Transform);
 			}
@@ -255,7 +205,7 @@ private:
 
 	COrthographicCamera OrthoCamera;
 	glm::vec3 CameraPosition = {0.0f, 0.0f, 0.0f};
-	float CameraSpeed = 1.5f;
+	float CameraSpeed = 0.1f;
 	float CameraRotation = 0.0f;
 	float RotationSpeed = 180.0f;
 

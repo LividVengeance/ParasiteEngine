@@ -111,6 +111,8 @@ project "Sandbox"
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
+	debugdir "%{prj.location}" -- Temp
+
 	buildoptions 
 	{ 
 		"/utf-8",

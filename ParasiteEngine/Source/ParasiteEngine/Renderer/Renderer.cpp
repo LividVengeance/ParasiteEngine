@@ -14,7 +14,7 @@ namespace Parasite
 		CRenderCommand::Init();
 	}
 
-	void CRenderer::BeginScene(COrthographicCamera& InCamera)
+	void CRenderer::BeginScene(CCamera& InCamera)
 	{
 		SceneData->ViewProjectionMatrix = InCamera.GetViewProjectionMatrix();
 	}

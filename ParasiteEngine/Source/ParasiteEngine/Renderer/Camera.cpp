@@ -36,4 +36,30 @@ namespace Parasite
 		ViewMatrix = glm::inverse(Transform);
 		ViewProjectionMatrix = ProjectionMatrix * ViewMatrix;
 	}
+
+
+	CPerspectiveCamera::CPerspectiveCamera(float InFov, float InAspectRatio, float InNearClip, float InFarClip)
+	{
+		ProjectionMatrix = glm::perspective(glm::radians(InFov), InAspectRatio, InNearClip, InFarClip);
+
+		ViewMatrix = glm::mat4(1.0f);
+		RecalculateViewProjection();
+	}
+
+	void CPerspectiveCamera::SetProjection(float InFov, float InAspectRatio, float InNearClip, float InFarClip)
+	{
+		ProjectionMatrix = glm::perspective(glm::radians(InFov), InAspectRatio, InNearClip, InFarClip);
+		RecalculateViewProjection();
+	}
+
+	void CPerspectiveCamera::SetView(const glm::mat4& InView)
+	{
+		ViewMatrix = InView;
+		RecalculateViewProjection();
+	}
+
+	void CPerspectiveCamera::RecalculateViewProjection()
+	{
+		ViewProjectionMatrix = ProjectionMatrix * ViewMatrix;
+	}
 }

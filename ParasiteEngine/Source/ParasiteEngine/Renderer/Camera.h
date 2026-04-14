@@ -2,9 +2,17 @@
 
 #include "glm/glm.hpp"
 
+
 namespace Parasite
 {
-	class COrthographicCamera
+	class CCamera
+	{
+	public:
+		virtual const glm::mat4& GetViewProjectionMatrix() const = 0;
+	};
+
+
+	class COrthographicCamera : public CCamera
 	{
 	public:
 		COrthographicCamera(float InLeft, float InRight, float InBottom, float InTop);
@@ -17,7 +25,7 @@ namespace Parasite
 
 		const glm::mat4& GetProjectionMatrix() const { return ProjectionMatrix; }
 		const glm::mat4& GetViewMatrix() const { return ViewMatrix; }
-		const glm::mat4& GetViewProjectionMatrix() const { return ViewProjectionMatrix; }
+		virtual const glm::mat4& GetViewProjectionMatrix() const override { return ViewProjectionMatrix; }
 
 	private:
 		void RecalculateViewMatrix();
@@ -32,5 +40,28 @@ namespace Parasite
 
 		float NearPlane = -1.0f;
 		float FarPlane = 1.0f;
+	};
+
+
+	class CPerspectiveCamera : public CCamera
+	{
+	public:
+		CPerspectiveCamera(float InFov, float InAspectRatio, float InNearClip, float InFarClip);
+
+		const glm::mat4& GetProjectionMatrix() const { return ProjectionMatrix; }
+		const glm::mat4& GetViewMatrix() const { return ViewMatrix; }
+		const glm::mat4& GetViewProjectionMatrix() const { return ViewProjectionMatrix; }
+
+		void SetProjection(float InFov, float InAspectRatio, float InNearClip, float InFarClip);
+
+		void SetView(const glm::mat4& InView);
+
+	private:
+		void RecalculateViewProjection();
+
+	private:
+		glm::mat4 ProjectionMatrix;
+		glm::mat4 ViewMatrix = glm::mat4(1.0f);
+		glm::mat4 ViewProjectionMatrix;
 	};
 }
