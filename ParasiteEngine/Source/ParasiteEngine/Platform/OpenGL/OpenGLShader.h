@@ -10,11 +10,13 @@ namespace Parasite
 	{
 	public:
 		COpenGLShader(const std::string& InFilepath);
-		COpenGLShader(const std::string& InVertexSource, const std::string& InFragmentSource);
+		COpenGLShader(const std::string& InName, const std::string& InVertexSource, const std::string& InFragmentSource);
 		~COpenGLShader();
 
 		virtual void Bind() const override;
 		virtual void Unbind() const override;
+
+		virtual const std::string& GetName() const override { return Name; };
 
 		void UploadUniformInt(const std::string& InName, const int InValue);
 		
@@ -33,5 +35,6 @@ namespace Parasite
 
 	private:
 		uint32_t RendererID;
+		std::string Name;
 	};
 }

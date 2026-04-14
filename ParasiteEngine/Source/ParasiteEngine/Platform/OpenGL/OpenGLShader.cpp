@@ -25,9 +25,17 @@ namespace Parasite
 		std::string Source = ReadFile(InFilepath);
 		auto ShaderSources = PreProcess(Source);
 		Complie(ShaderSources);
+	
+		// Extract name from file path
+		auto LastSlash = InFilepath.find_last_of("/\\");
+		LastSlash = LastSlash == std::string::npos ? 0 : LastSlash + 1;
+		auto LastDot = InFilepath.rfind(".");
+		auto Count = LastDot == std::string::npos ? InFilepath.size() - LastSlash : LastDot - LastSlash;
+		Name = InFilepath.substr(LastSlash, Count);
 	}
 
-	COpenGLShader::COpenGLShader(const std::string& InVertexSource, const std::string& InFragmentSource)
+	COpenGLShader::COpenGLShader(const std::string& InName, const std::string& InVertexSource, const std::string& InFragmentSource)
+		:Name(InName)
 	{
 		std::unordered_map<GLenum, std::string> Sources;
 		Sources[GL_VERTEX_SHADER] = InVertexSource;
@@ -95,7 +103,7 @@ namespace Parasite
 	std::string COpenGLShader::ReadFile(const std::string& InFilepath)
 	{
 		std::string Result;
-		std::ifstream in(InFilepath, std::ios::in, std::ios::binary);
+		std::ifstream in(InFilepath, std::ios::in | std::ios::binary);
 		if (in)
 		{
 			in.seekg(0, std::ios::end);
@@ -140,7 +148,8 @@ namespace Parasite
 	void COpenGLShader::Complie(std::unordered_map<GLenum, std::string>& InShaderSources)
 	{
 		GLuint Program = glCreateProgram();
-		std::vector<GLenum> GLShaderIDs(InShaderSources.size());
+		std::vector<GLenum> GLShaderIDs;
+		GLShaderIDs.reserve(InShaderSources.size());
 
 		// Create and attach given shaders
 		for (auto& [Type, Source] : InShaderSources)

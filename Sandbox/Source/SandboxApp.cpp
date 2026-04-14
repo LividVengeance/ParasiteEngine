@@ -130,16 +130,15 @@ public:
 			}
 		)";
 
-		Shader.reset(CShader::Create(VertexSource, FragmentSource));
-		TextureShader.reset(CShader::Create("E:/Projects/ParasiteEngine/Sandbox/Assets/Shaders/Texture.glsl"));
-		FlatColourShader.reset(CShader::Create(FlatColourVertexSource, FlatColourFragmentSource));
+		auto TextureShader = ShaderLibirary.Load("Assets/Shaders/Texture.glsl");
+		auto TriangleShader = ShaderLibirary.Load("VertexColourTriangle", VertexSource, FragmentSource);
+		auto FlatColourShader = ShaderLibirary.Load("FlatColour", FlatColourVertexSource, FlatColourFragmentSource);
 
 		Texture = CTexture2D::Create("Assets/Textures/Checkerboard.png");
 		Texture2 = CTexture2D::Create("Assets/Textures/Checkerboard2.png");
 
 		std::dynamic_pointer_cast<COpenGLShader>(TextureShader)->Bind();
 		std::dynamic_pointer_cast<COpenGLShader>(TextureShader)->UploadUniformInt("u_Texture", 0);
-
 	}
 
 	virtual void OnUpdate(CTimestep InTimestep) override
@@ -150,12 +149,11 @@ public:
 		CRenderCommand::SetClearColour(glm::vec4(0.1f, 0.1f, 0.1f, 1));
 		CRenderCommand::Clear();
 
-		//OrthoCamera.SetPosition(CameraPosition);
-		//OrthoCamera.SetRotation(CameraRotation, 0.0f);
-
 		CRenderer::BeginScene(OrthoCamera);
 
 		glm::mat4 Scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
+
+		auto FlatColourShader = ShaderLibirary.Get("FlatColour");
 
 		std::dynamic_pointer_cast<COpenGLShader>(FlatColourShader)->Bind();
 		std::dynamic_pointer_cast<COpenGLShader>(FlatColourShader)->UploadUniformFloat3("u_Colour", SqaureColour);
@@ -170,14 +168,15 @@ public:
 			}
 		}
 		
+		auto TextureShader = ShaderLibirary.Get("Texture");
 		Texture->Bind();
 		CRenderer::Submit(TextureShader, SquareVertexArray, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
 		Texture2->Bind();
 		CRenderer::Submit(TextureShader, SquareVertexArray, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
-
-		CRenderer::Submit(Shader, VertexArray);
+		auto TriangleShader = ShaderLibirary.Get("VertexColourTriangle");
+		CRenderer::Submit(TriangleShader, VertexArray);
 
 		CRenderer::EndScene();
 	}
@@ -196,10 +195,8 @@ public:
 	}
 
 private:
-	TSharedPtr<CShader> Shader;
+	CShaderLibirary ShaderLibirary;
 	TSharedPtr<CVertexArray> VertexArray;
-
-	TSharedPtr<CShader> FlatColourShader, TextureShader;
 	TSharedPtr<CVertexArray> SquareVertexArray;
 	TSharedPtr<CTexture2D> Texture, Texture2;
 
