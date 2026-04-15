@@ -11,6 +11,7 @@
 #include "ParasiteEngine/Input.h"
 #include "ParasiteEngine/MouseButtonCodes.h"
 #include "ParasiteEngine/KeyCodes.h"
+#include "ParasiteEngine/CameraController.h"
 
 // --- Renderer
 #include "ParasiteEngine/Renderer/Renderer.h"

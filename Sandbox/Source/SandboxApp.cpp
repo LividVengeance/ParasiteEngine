@@ -13,10 +13,8 @@ using namespace Parasite;
 class CTestLayer : public Parasite::CLayer
 {
 public:
-	CTestLayer()
-		: CLayer("Example Layer")
-			, OrthoCamera(-2.0f, 2.0f, -2.0f, 2.0f)
-			, CameraPosition(0.0f)
+	CTestLayer() : CLayer("Example Layer")
+		, OrthoCamera(1.7777f, true)
 	{
 		VertexArray.reset(CVertexArray::Create());
 
@@ -143,13 +141,12 @@ public:
 
 	virtual void OnUpdate(CTimestep InTimestep) override
 	{
-		const float Speed = CameraSpeed *InTimestep;
-		const float RotSpeed = RotationSpeed *InTimestep;
+		OrthoCamera.OnUpdate(InTimestep);
 
 		CRenderCommand::SetClearColour(glm::vec4(0.1f, 0.1f, 0.1f, 1));
 		CRenderCommand::Clear();
 
-		CRenderer::BeginScene(OrthoCamera);
+		CRenderer::BeginScene(OrthoCamera.GetCamera());
 
 		glm::mat4 Scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
 
@@ -183,6 +180,7 @@ public:
 
 	virtual void OnEvent(Parasite::CEvent& InEvent)
 	{
+		OrthoCamera.OnEvent(InEvent);
 	}
 
 	virtual void  OnImGuiRender() override
@@ -200,11 +198,7 @@ private:
 	TSharedPtr<CVertexArray> SquareVertexArray;
 	TSharedPtr<CTexture2D> Texture, Texture2;
 
-	COrthographicCamera OrthoCamera;
-	glm::vec3 CameraPosition = {0.0f, 0.0f, 0.0f};
-	float CameraSpeed = 0.1f;
-	float CameraRotation = 0.0f;
-	float RotationSpeed = 180.0f;
+	COrthographicCameraController OrthoCamera;
 
 	glm::vec3 SqaureColour = { 0.2f, 0.3f, 0.8f };
 };

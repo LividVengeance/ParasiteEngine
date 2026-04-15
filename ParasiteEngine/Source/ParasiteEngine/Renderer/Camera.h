@@ -16,12 +16,15 @@ namespace Parasite
 	{
 	public:
 		COrthographicCamera(float InLeft, float InRight, float InBottom, float InTop);
+		
+		void SetProjection(float InLeft, float InRight, float InBottom, float InTop);
 
 		const glm::vec3 GetPosition() const { return Position; }
 		void SetPosition(const glm::vec3& InPosition);
 
 		float GetRotation() const { return Rotation; }
 		void SetRotation(float InRotation);
+
 
 		const glm::mat4& GetProjectionMatrix() const { return ProjectionMatrix; }
 		const glm::mat4& GetViewMatrix() const { return ViewMatrix; }

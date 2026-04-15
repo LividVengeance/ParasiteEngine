@@ -13,6 +13,12 @@ namespace Parasite
 		ViewProjectionMatrix = ProjectionMatrix * ViewMatrix;
 	}
 
+	void COrthographicCamera::SetProjection(float InLeft, float InRight, float InBottom, float InTop)
+	{
+		ProjectionMatrix = glm::ortho(InLeft, InRight, InBottom, InTop);
+		ViewProjectionMatrix = ProjectionMatrix * ViewMatrix;
+	}
+
 	void COrthographicCamera::SetPosition(const glm::vec3& InPosition)
 	{
 		Position = InPosition;
