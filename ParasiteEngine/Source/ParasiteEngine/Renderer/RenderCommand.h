@@ -12,6 +12,11 @@ namespace Parasite
 			RendererAPI->Init();
 		}
 
+		inline static void SetViewport(uint32_t InX, uint32_t InY, uint32_t InWidth, uint32_t InHeight)
+		{
+			RendererAPI->SetViewport(InX, InY, InWidth, InHeight);
+		}
+
 		inline static void DrawIndexed(const TSharedPtr<CVertexArray>& InVertexArray)
 		{
 			RendererAPI->DrawIndexed(InVertexArray);

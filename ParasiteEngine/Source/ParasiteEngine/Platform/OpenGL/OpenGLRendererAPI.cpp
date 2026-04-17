@@ -12,6 +12,11 @@ namespace Parasite
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	}
 
+	void COpenGLRendererAPI::SetViewport(uint32_t InX, uint32_t InY, uint32_t InWidth, uint32_t InHeight)
+	{
+		glViewport(InX, InY, InWidth, InHeight);
+	}
+
 	void COpenGLRendererAPI::SetClearColour(const glm::vec4& InColour)
 	{
 		glClearColor(InColour.r, InColour.g, InColour.b, InColour.a);

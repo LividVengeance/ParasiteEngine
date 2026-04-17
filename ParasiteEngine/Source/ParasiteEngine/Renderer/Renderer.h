@@ -11,6 +11,7 @@ namespace Parasite
 	{
 	public:
 		static void Init();
+		static void OnWindowResize(uint32_t InWidth, uint32_t InHeight);
 
 		static void BeginScene(CCamera& InCamera);
 		static void EndScene();

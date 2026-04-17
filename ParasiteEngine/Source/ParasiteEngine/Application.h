@@ -26,6 +26,7 @@ namespace Parasite
 
 	private:
 		bool OnWindowClose(CWindowCloseEvent& InWindowCloseEvent);
+		bool OnWindowResize(CWindowResizeEvent& InWindowResizeEvent);
 
 	private:
 		CLayerStack LayerStack;
@@ -33,6 +34,7 @@ namespace Parasite
 		TWeakPtr<CWindow> Window;
 		CImGuiLayer* ImGuiLayer;
 		bool bRunning = true;
+		bool bMinimized = false;
 		
 		float LastFrameTime = 0.0f;
 

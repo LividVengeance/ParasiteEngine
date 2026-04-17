@@ -40,9 +40,12 @@ namespace Parasite
 			CTimestep Timestep = Time - LastFrameTime;
 			LastFrameTime = Time;
 
-			for (CLayer* Layer : LayerStack)
+			if (!bMinimized)
 			{
-				Layer->OnUpdate(Timestep);
+				for (CLayer* Layer : LayerStack)
+				{
+					Layer->OnUpdate(Timestep);
+				}
 			}
 
 			ImGuiLayer->Begin();
@@ -59,7 +62,8 @@ namespace Parasite
 	void CApplication::OnEvent(CEvent& InEvent)
 	{
 		CEventDispatcher EventDispatcher(InEvent);
-		EventDispatcher.Dispatch<CWindowCloseEvent>(std::bind(&CApplication::OnWindowClose, this, std::placeholders::_1));
+		EventDispatcher.Dispatch<CWindowCloseEvent>(PE_BIND_EVENT_FUNC(CApplication::OnWindowClose));
+		EventDispatcher.Dispatch<CWindowResizeEvent>(PE_BIND_EVENT_FUNC(CApplication::OnWindowResize));
 
 		for (auto It = LayerStack.end(); It != LayerStack.begin(); )
 		{
@@ -88,5 +92,19 @@ namespace Parasite
 	{
 		bRunning = false;
 		return true;
+	}
+
+	bool CApplication::OnWindowResize(CWindowResizeEvent& InWindowResizeEvent)
+	{
+		if (InWindowResizeEvent.GetWidth() <= 0 || InWindowResizeEvent.GetHeight() <= 0)
+		{
+			bMinimized = true;
+			return false;
+		}
+
+		bMinimized = false;
+		CRenderer::OnWindowResize(InWindowResizeEvent.GetWidth(), InWindowResizeEvent.GetHeight());
+
+		return false;
 	}
 }
