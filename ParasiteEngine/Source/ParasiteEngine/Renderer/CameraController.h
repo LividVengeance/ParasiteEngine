@@ -1,10 +1,10 @@
 #pragma once
 
-#include "Renderer/Camera.h"
+#include "ParasiteEngine/Renderer/Camera.h"
 
-#include "Core/Timestep.h"
-#include "Events/ApplicationEvent.h"
-#include "Events/MouseEvents.h"
+#include "ParasiteEngine/Core/Timestep.h"
+#include "ParasiteEngine/Events/ApplicationEvent.h"
+#include "ParasiteEngine/Events/MouseEvents.h"
 
 
 namespace Parasite

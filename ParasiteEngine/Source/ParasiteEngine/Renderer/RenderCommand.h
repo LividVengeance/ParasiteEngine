@@ -2,6 +2,7 @@
 #include "RendererAPI.h"
 #include "VertexArray.h"
 
+
 namespace Parasite
 {
 	class CRenderCommand

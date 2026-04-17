@@ -1,9 +1,9 @@
 #include "pepch.h"
 #include "CameraController.h"
 
-#include "Input.h"
-#include "KeyCodes.h"
-#include "Core.h"
+#include "ParasiteEngine/Core/Input.h"
+#include "ParasiteEngine/Core/KeyCodes.h"
+#include "ParasiteEngine/Core/Core.h"
 
 
 namespace Parasite

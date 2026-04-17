@@ -13,7 +13,7 @@
 #include "unordered_map"
 #include "unordered_set"
 
-#include "ParasiteEngine/Log.h"
+#include "ParasiteEngine/Core/Log.h"
 
 
 #ifdef PE_PLATFORM_WINDOWS

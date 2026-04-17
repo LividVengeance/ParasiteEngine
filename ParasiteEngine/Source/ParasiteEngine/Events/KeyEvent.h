@@ -1,7 +1,7 @@
 #pragma once
 
 #include "ParasiteEngine/Events/Event.h"
-#include "ParasiteEngine/Core.h"
+#include "ParasiteEngine/Core/Core.h"
 
 
 namespace Parasite

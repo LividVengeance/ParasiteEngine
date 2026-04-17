@@ -2,7 +2,7 @@
 
 #include "WindowsWindow.h"
 
-#include "ParasiteEngine/Log.h"
+#include "ParasiteEngine/Core/Log.h"
 #include "ParasiteEngine/Events/Event.h"
 #include "ParasiteEngine/Events/ApplicationEvent.h"
 #include "ParasiteEngine/Events/KeyEvent.h"

@@ -2,7 +2,7 @@
 
 #include "OpenGLShader.h"
 #include "ParasiteEngine/Renderer/Renderer.h"
-#include "ParasiteEngine/Core.h"
+#include "ParasiteEngine/Core/Core.h"
 
 #include "fstream"
 #include "GLAD/glad.h"

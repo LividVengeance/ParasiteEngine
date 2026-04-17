@@ -2,16 +2,15 @@
 
 /// For use by Parasite Engine applications
 
-#include "ParasiteEngine/Application.h"
-#include "ParasiteEngine/Log.h"
-#include "ParasiteEngine/Layer.h"
+#include "ParasiteEngine/Core/Application.h"
+#include "ParasiteEngine/Core/Log.h"
+#include "ParasiteEngine/Core/Layer.h"
 #include "ParasiteEngine/ImGui/ImGuiLayer.h"
 #include "ParasiteEngine/Events/Event.h"
 
-#include "ParasiteEngine/Input.h"
-#include "ParasiteEngine/MouseButtonCodes.h"
-#include "ParasiteEngine/KeyCodes.h"
-#include "ParasiteEngine/CameraController.h"
+#include "ParasiteEngine/Core/Input.h"
+#include "ParasiteEngine/Core/MouseButtonCodes.h"
+#include "ParasiteEngine/Core/KeyCodes.h"
 
 // --- Renderer
 #include "ParasiteEngine/Renderer/Renderer.h"
@@ -21,6 +20,8 @@
 #include "ParasiteEngine/Renderer/Shader.h"
 #include "ParasiteEngine/Renderer/Texture.h"
 #include "ParasiteEngine/Renderer/VertexArray.h"
+
+#include "ParasiteEngine/Renderer/CameraController.h"
 // ---
 
 #include "ParasiteEngine/Core/Timestep.h"
@@ -28,5 +29,5 @@
 #include "ParasiteEngine/Renderer/Camera.h"
 
 // --- Entry Point
-#include "ParasiteEngine/EntryPoint.h"
+#include "ParasiteEngine/Core/EntryPoint.h"
 // --- 

@@ -2,10 +2,10 @@
 #include "Application.h"
 
 #include "ParasiteEngine/Events/Event.h"
-#include "ParasiteEngine/Log.h"
-#include "ParasiteEngine/KeyCodes.h"
+#include "ParasiteEngine/Core/Log.h"
+#include "ParasiteEngine/Core/KeyCodes.h"
 #include "ParasiteEngine/Core/Timestep.h"
-#include "Renderer/Renderer.h"
+#include "ParasiteEngine/Renderer/Renderer.h"
 
 #include "GLFW/glfw3.h"
 

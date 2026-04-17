@@ -1,8 +1,8 @@
 #pragma once
 
-#include "ParasiteEngine/Core.h"
+#include "ParasiteEngine/Core/Core.h"
 #include "ParasiteEngine/Events/Event.h"
-#include "Core/Timestep.h"
+#include "ParasiteEngine/Core/Timestep.h"
 
 
 namespace Parasite

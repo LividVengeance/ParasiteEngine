@@ -1,7 +1,7 @@
 #pragma once
 
-#include "ParasiteEngine/Window.h"
-#include "ParasiteEngine/Core.h"
+#include "ParasiteEngine/Core/Window.h"
+#include "ParasiteEngine/Core/Core.h"
 
 #include "GLFW/glfw3.h"
 

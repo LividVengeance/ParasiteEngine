@@ -5,10 +5,10 @@
 #include "backends/imgui_impl_glfw.h"
 #include "backends/imgui_impl_opengl3.h"
 
-#include "ParasiteEngine/Application.h"
+#include "ParasiteEngine/Core/Application.h"
 
-#include <GLFW/glfw3.h>
-#include <glad/glad.h>
+#include "GLFW/glfw3.h"
+#include "glad/glad.h"
 
 
 namespace Parasite

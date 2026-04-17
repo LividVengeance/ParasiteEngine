@@ -2,7 +2,7 @@
 #include "WindowsInput.h"
 
 #include "GLFW/glfw3.h"
-#include "ParasiteEngine/Application.h"
+#include "ParasiteEngine/Core/Application.h"
 
 
 namespace Parasite

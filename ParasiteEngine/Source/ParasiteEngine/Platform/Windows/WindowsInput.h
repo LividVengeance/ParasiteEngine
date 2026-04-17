@@ -1,5 +1,6 @@
 #pragma once
-#include "ParasiteEngine/Input.h"
+#include "ParasiteEngine/Core/Input.h"
+
 
 namespace Parasite
 {
