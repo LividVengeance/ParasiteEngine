@@ -7,14 +7,13 @@
 
 namespace Parasite
 {
-	CVertexArray* CVertexArray::Create()
+	TSharedPtr<CVertexArray> CVertexArray::Create()
 	{
 		switch (CRenderer::GetRendererAPI())
 		{
 			case CRendererAPI::EAPI::None: return nullptr;
-			case CRendererAPI::EAPI::OpenGL: return new COpenGLVertexArray();
+			case CRendererAPI::EAPI::OpenGL: return std::make_shared<COpenGLVertexArray>();
 		}
 		return nullptr;
 	}
-
 }

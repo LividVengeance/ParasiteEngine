@@ -16,6 +16,11 @@ namespace Parasite
 		virtual void Bind() const override;
 		virtual void Unbind() const override;
 
+		virtual void SetFloat4(const std::string& InName, const glm::vec4& InValue) override;
+		virtual void SetFloat3(const std::string& InName, const glm::vec3& InValue) override;
+		virtual void SetMat4(const std::string& InName, const glm::mat4& InValue) override;
+		virtual void SetInt(const std::string& InName, int InValue) override;
+
 		virtual const std::string& GetName() const override { return Name; };
 
 		void UploadUniformInt(const std::string& InName, const int InValue);

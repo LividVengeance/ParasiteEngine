@@ -1,4 +1,5 @@
 #include "ParasiteEngine.h"
+#include "ParasiteEngine/Core/EntryPoint.h"
 
 #include "ParasiteEngine/Core/Layer.h"
 #include "ParasiteEngine/Events/Event.h"
@@ -6,6 +7,7 @@
 #include "ImGui/imgui.h"
 #include "ParasiteEngine/Platform/OpenGL/OpenGLShader.h"
 #include "glm/gtc/type_ptr.hpp"
+#include "Sandbox2D.h"
 
 using namespace Parasite;
 
@@ -16,7 +18,7 @@ public:
 	CTestLayer() : CLayer("Example Layer")
 		, OrthoCamera(1.7777f, true)
 	{
-		VertexArray.reset(CVertexArray::Create());
+		VertexArray = CVertexArray::Create();
 
 		float Vertices[3 * 7] =
 		{
@@ -40,7 +42,7 @@ public:
 		IndexBuffer.reset(CIndexBuffer::Create(Indices, 3));
 		VertexArray->SetIndexBuffer(IndexBuffer);
 
-		SquareVertexArray.reset(CVertexArray::Create());
+		SquareVertexArray = CVertexArray::Create();
 
 		float SquareVertices[5 * 4] =
 		{
@@ -209,7 +211,8 @@ class CSandbox : public Parasite::CApplication
 public:
 	CSandbox()
 	{
-		PushLayer(new CTestLayer());
+		//PushLayer(new CTestLayer());
+		PushLayer(new CSandbox2D());
 	}
 
 	~CSandbox()

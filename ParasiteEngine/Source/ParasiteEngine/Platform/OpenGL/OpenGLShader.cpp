@@ -58,6 +58,26 @@ namespace Parasite
 		glUseProgram(0);
 	}
 
+	void COpenGLShader::SetFloat4(const std::string& InName, const glm::vec4& InValue)
+	{
+		UploadUniformFloat4(InName, InValue);
+	}
+
+	void COpenGLShader::SetFloat3(const std::string& InName, const glm::vec3& InValue)
+	{
+		UploadUniformFloat3(InName, InValue);
+	}
+
+	void COpenGLShader::SetMat4(const std::string& InName, const glm::mat4& InValue)
+	{
+		UploadUniformMat4(InName, InValue);
+	}
+
+	void COpenGLShader::SetInt(const std::string& InName, int InValue)
+	{
+		UploadUniformInt(InName, InValue);
+	}
+
 	void COpenGLShader::UploadUniformInt(const std::string& InName, const int InValue)
 	{
 		GLint Location = glGetUniformLocation(RendererID, InName.c_str());

@@ -13,6 +13,7 @@
 #include "ParasiteEngine/Core/KeyCodes.h"
 
 // --- Renderer
+#include "ParasiteEngine/Renderer/Renderer2D.h"
 #include "ParasiteEngine/Renderer/Renderer.h"
 #include "ParasiteEngine/Renderer/RenderCommand.h"
 
@@ -27,7 +28,3 @@
 #include "ParasiteEngine/Core/Timestep.h"
 
 #include "ParasiteEngine/Renderer/Camera.h"
-
-// --- Entry Point
-#include "ParasiteEngine/Core/EntryPoint.h"
-// --- 

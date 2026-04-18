@@ -20,6 +20,6 @@ namespace Parasite
 		virtual const std::vector<TSharedPtr<CVertexBuffer>>& GetVertexBuffers() const = 0;
 		virtual const TSharedPtr<CIndexBuffer>& GetIndexBuffer() const = 0;
 
-		static CVertexArray* Create();
+		static TSharedPtr<CVertexArray> Create();
 	};
 }

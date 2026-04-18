@@ -1,6 +1,7 @@
 #include "pepch.h"
 #include "Renderer.h"
 #include "RenderCommand.h"
+#include "Renderer2D.h"
 
 #include "ParasiteEngine/Platform/OpenGL/OpenGLShader.h"
 
@@ -12,6 +13,7 @@ namespace Parasite
 	void CRenderer::Init()
 	{
 		CRenderCommand::Init();
+		CRenderer2D::Init();
 	}
 
 	void CRenderer::OnWindowResize(uint32_t InWidth, uint32_t InHeight)
