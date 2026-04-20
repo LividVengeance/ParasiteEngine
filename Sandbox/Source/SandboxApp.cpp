@@ -27,8 +27,7 @@ public:
 			 0.0f, 0.5f, 0.0f,			0.8f, 0.8f, 0.2f, 1.f,
 		};
 
-		TSharedPtr<CVertexBuffer> VertexBuffer;
-		VertexBuffer.reset(CVertexBuffer::Create(Vertices, sizeof(Vertices)));
+		TSharedPtr<CVertexBuffer> VertexBuffer = CVertexBuffer::Create(Vertices, sizeof(Vertices));
 		CBufferLayout BufferLayout =
 		{
 			{ EShaderDataType::Float3, "a_Position" },
@@ -38,8 +37,7 @@ public:
 		VertexArray->AddVertexBuffer(VertexBuffer);
 
 		uint32_t Indices[3] = { 0, 1, 2 };
-		TSharedPtr<CIndexBuffer> IndexBuffer;
-		IndexBuffer.reset(CIndexBuffer::Create(Indices, 3));
+		TSharedPtr<CIndexBuffer> IndexBuffer = CIndexBuffer::Create(Indices, 3);
 		VertexArray->SetIndexBuffer(IndexBuffer);
 
 		SquareVertexArray = CVertexArray::Create();
@@ -52,8 +50,7 @@ public:
 			-0.5f, 0.5f, 0.0f,		0.0f, 1.0f,
 		};
 
-		TSharedPtr<CVertexBuffer> SquareVertexBuffer;
-		SquareVertexBuffer.reset(CVertexBuffer::Create(SquareVertices, sizeof(SquareVertices)));
+		TSharedPtr<CVertexBuffer> SquareVertexBuffer = CVertexBuffer::Create(SquareVertices, sizeof(SquareVertices));
 		SquareVertexBuffer->SetLayout({
 				{ EShaderDataType::Float3, "a_Position" },
 				{ EShaderDataType::Float2, "a_TexCoord" },
@@ -61,8 +58,7 @@ public:
 		SquareVertexArray->AddVertexBuffer(SquareVertexBuffer);
 
 		uint32_t SqaureIndices[6] = { 0, 1, 2, 2, 3, 0 };
-		TSharedPtr<CIndexBuffer> SqaureIndexBuffer;
-		SqaureIndexBuffer.reset(CIndexBuffer::Create(SqaureIndices, sizeof(SqaureIndices) / sizeof(uint32_t)));
+		TSharedPtr<CIndexBuffer> SqaureIndexBuffer = CIndexBuffer::Create(SqaureIndices, sizeof(SqaureIndices) / sizeof(uint32_t));
 		SquareVertexArray->SetIndexBuffer(SqaureIndexBuffer);
 
 		std::string VertexSource = R"(

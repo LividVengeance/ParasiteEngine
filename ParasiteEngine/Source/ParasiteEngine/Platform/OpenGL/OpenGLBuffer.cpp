@@ -9,6 +9,13 @@ namespace Parasite
 	////////////////////////////////////////////////////////////////////////////////
 	///	Vertex Buffer //////////////////////////////////////////////////////////////
 
+	COpenGLVertexBuffer::COpenGLVertexBuffer(uint32_t InSize)
+	{
+		glCreateBuffers(1, &RendererID);
+		glBindBuffer(GL_ARRAY_BUFFER, RendererID);
+		glBufferData(GL_ARRAY_BUFFER, InSize, nullptr, GL_DYNAMIC_DRAW);
+	}
+
 	COpenGLVertexBuffer::COpenGLVertexBuffer(float* InVertices, uint32_t InSize)
 	{
 		glCreateBuffers(1, &RendererID);
@@ -31,6 +38,11 @@ namespace Parasite
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
 
+	void COpenGLVertexBuffer::SetData(const void* InData, int32_t InSize)
+	{
+		glBindBuffer(GL_ARRAY_BUFFER, RendererID);
+		glBufferSubData(GL_ARRAY_BUFFER, 0, InSize, InData);
+	}
 
 	////////////////////////////////////////////////////////////////////////////////
 	///	Index Buffer ///////////////////////////////////////////////////////////////

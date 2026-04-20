@@ -29,8 +29,10 @@ namespace Parasite
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
-	void COpenGLRendererAPI::DrawIndexed(const TSharedPtr<CVertexArray>& InVertexArray)
+	void COpenGLRendererAPI::DrawIndexed(const TSharedPtr<CVertexArray>& InVertexArray, uint32_t InIndexCount)
 	{
-		glDrawElements(GL_TRIANGLES, InVertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+		const uint32_t IndexCount = InIndexCount > 0 ? InIndexCount : InVertexArray->GetIndexBuffer()->GetCount();
+		glDrawElements(GL_TRIANGLES, IndexCount, GL_UNSIGNED_INT, nullptr);
+		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 }

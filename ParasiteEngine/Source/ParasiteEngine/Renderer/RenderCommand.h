@@ -18,9 +18,9 @@ namespace Parasite
 			RendererAPI->SetViewport(InX, InY, InWidth, InHeight);
 		}
 
-		inline static void DrawIndexed(const TSharedPtr<CVertexArray>& InVertexArray)
+		inline static void DrawIndexed(const TSharedPtr<CVertexArray>& InVertexArray, uint32_t InIndexCount = 0)
 		{
-			RendererAPI->DrawIndexed(InVertexArray);
+			RendererAPI->DrawIndexed(InVertexArray, InIndexCount);
 		}
 
 		inline static void SetClearColour(const glm::vec4& InColour)

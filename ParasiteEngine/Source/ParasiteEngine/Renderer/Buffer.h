@@ -110,7 +110,10 @@ namespace Parasite
 		virtual void SetLayout(const CBufferLayout& InBufferLayout) = 0;
 		virtual const CBufferLayout& GetLayout() const = 0;
 
-		static CVertexBuffer* Create(float* InVertices, uint32_t InSize);
+		virtual void SetData(const void* InData, int32_t InSize) = 0;
+
+		static TSharedPtr<CVertexBuffer> Create(uint32_t InSize);
+		static TSharedPtr<CVertexBuffer> Create(float* InVertices, uint32_t InSize);
 	};
 
 
@@ -124,6 +127,6 @@ namespace Parasite
 
 		virtual uint32_t GetCount() const = 0;
 
-		static CIndexBuffer* Create(uint32_t* InIndices, uint32_t InCount);
+		static TSharedPtr<CIndexBuffer> Create(uint32_t* InIndices, uint32_t InCount);
 	};
 }

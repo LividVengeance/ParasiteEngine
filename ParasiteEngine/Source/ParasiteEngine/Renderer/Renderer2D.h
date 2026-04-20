@@ -13,6 +13,7 @@ namespace Parasite
 		
 		static void BeginScene(const CCamera& InCamera);
 		static void EndScene();
+		static void Flush();
 
 		static void DrawQuad(const glm::vec2& InPosition, const glm::vec2& InSize, const glm::vec4 InColour);
 		static void DrawQuad(const glm::vec3& InPosition, const glm::vec2& InSize, const glm::vec4 InColour);

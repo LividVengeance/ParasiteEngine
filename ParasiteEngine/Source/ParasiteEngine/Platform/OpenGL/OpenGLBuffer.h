@@ -7,11 +7,14 @@ namespace Parasite
 	class COpenGLVertexBuffer : public CVertexBuffer
 	{
 	public:
+		COpenGLVertexBuffer(uint32_t InSize);
 		COpenGLVertexBuffer(float* InVertices, uint32_t InSize);
 		virtual ~COpenGLVertexBuffer() override;
 
 		virtual void Bind() const override;
 		virtual void Unbind() const override;
+
+		virtual void SetData(const void* InData, int32_t InSize) override;
 
 		virtual void SetLayout(const CBufferLayout& InBufferLayout) override { Layout = InBufferLayout; };
 		virtual const CBufferLayout& GetLayout() const override { return Layout; };

@@ -20,23 +20,33 @@ namespace Parasite
 	}
 
 
-	CVertexBuffer* CVertexBuffer::Create(float* InVertices, uint32_t InSize)
+	TSharedPtr<CVertexBuffer> CVertexBuffer::Create(uint32_t InSize)
+	{
+		switch (CRenderer::GetRendererAPI())
+		{
+		case CRendererAPI::EAPI::None: return nullptr;
+		case CRendererAPI::EAPI::OpenGL: return MakeShared<COpenGLVertexBuffer>(InSize);
+		}
+		return nullptr;
+	}
+
+	TSharedPtr<CVertexBuffer> CVertexBuffer::Create(float* InVertices, uint32_t InSize)
 	{
 		switch (CRenderer::GetRendererAPI())
 		{
 			case CRendererAPI::EAPI::None: return nullptr;
-			case CRendererAPI::EAPI::OpenGL: return new COpenGLVertexBuffer(InVertices, InSize);
+			case CRendererAPI::EAPI::OpenGL: return MakeShared<COpenGLVertexBuffer>(InVertices, InSize);
 		}
 		return nullptr;
 	}
 
 
-	CIndexBuffer* CIndexBuffer::Create(uint32_t* InIndices, uint32_t InSize)
+	TSharedPtr<CIndexBuffer> CIndexBuffer::Create(uint32_t* InIndices, uint32_t InSize)
 	{
 		switch (CRenderer::GetRendererAPI())
 		{
 			case CRendererAPI::EAPI::None: return nullptr;
-			case CRendererAPI::EAPI::OpenGL: return new COpenGLIndexBuffer(InIndices, InSize);
+			case CRendererAPI::EAPI::OpenGL: return MakeShared<COpenGLIndexBuffer>(InIndices, InSize);
 		}
 		return nullptr;
 	}
