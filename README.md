@@ -1,6 +1,6 @@
 # ParasiteEngine
 
-##Project Setup:
+## Project Setup:
 
 Clone the repository via ```git clone --recursive https://github.com/ajbarnes97/ParasiteEngine```
 
