@@ -1,6 +1,8 @@
 #pragma once
-#include "glm/ext/matrix_float4x4.hpp"
 #include "ParasiteEngine/Renderer/Camera.h"
+#include "ParasiteEngine/Scene/ScriptableEntity.h"
+
+#include "glm/ext/matrix_float4x4.hpp"
 
 
 namespace Parasite
@@ -59,4 +61,31 @@ namespace Parasite
 		CCamera Camera; 
 		bool bPrimaryCamera = true; // todo: Should be handled by scene
 	};
+
+	struct SNativeScriptComponent
+	{
+	public:
+		template<typename T>
+		void Bind();
+
+	public:
+		CScriptableEntity* Instance = nullptr;
+		std::function<void()> InstantiateFunc;
+		std::function<void()> DestroyInstanceFunc;
+
+		std::function<void(CScriptableEntity*)> OnCreateFunc;
+		std::function<void(CScriptableEntity*)> OnDestroyFunc;
+		std::function<void(CScriptableEntity*, CTimestep)> OnUpdateFunc;
+	};
+
+	template<typename T>
+	void SNativeScriptComponent::Bind()
+	{
+		InstantiateFunc = [&]() { Instance = new T(); };
+		DestroyInstanceFunc = [&]() { delete static_cast<T*>(Instance); };
+
+		OnCreateFunc = [](CScriptableEntity* InInstance) { static_cast<T*>(InInstance)->OnCreate(); };
+		OnDestroyFunc = [](CScriptableEntity* InInstance) { static_cast<T*>(InInstance)->OnDestroy(); };
+		OnUpdateFunc = [](CScriptableEntity* InInstance, CTimestep InTimestep) { static_cast<T*>(InInstance)->OnUpdate(InTimestep); };
+	}
 }

@@ -36,6 +36,37 @@ namespace Parasite
 		CameraTwoEntity = ActiveScene->CreateEntity("Camera Two");
 		auto& CameraComp = CameraTwoEntity.AddComponent<SCameraComponent>(glm::ortho(-1.0f, 1.0f, -1.0f, 1.0f, -1.0f, 1.0f));
 		CameraComp.bPrimaryCamera = false;
+
+		class CCameraController : public CScriptableEntity
+		{
+		public:
+			void OnCreate()
+			{
+			}
+
+			void OnUpdate(CTimestep InTimestep)
+			{
+				auto& Transform = GetComponent<STransformComponent>().Transform;
+				float Speed = 5.0f;
+
+				if (CInput::IsKeyPressed(PE_KEY_A))
+					Transform[3][0] -= Speed * InTimestep;
+				if (CInput::IsKeyPressed(PE_KEY_D))
+					Transform[3][0] += Speed * InTimestep;
+				if (CInput::IsKeyPressed(PE_KEY_W))
+					Transform[3][1] += Speed * InTimestep;
+				if (CInput::IsKeyPressed(PE_KEY_S))
+					Transform[3][1] -= Speed * InTimestep;
+			}
+
+			void OnDestroy()
+			{
+
+			}
+		};
+
+	
+		CameraTwoEntity.AddComponent<SNativeScriptComponent>().Bind<CCameraController>();
 	}
 
 	void CEditorLayer::OnDetach()

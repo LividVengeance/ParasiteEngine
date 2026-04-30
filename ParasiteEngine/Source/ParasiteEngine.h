@@ -14,6 +14,7 @@
 
 #include "ParasiteEngine/Scene/Scene.h"
 #include "ParasiteEngine/Scene/Entity.h"
+#include "ParasiteEngine/Scene/ScriptableEntity.h"
 #include "ParasiteEngine/Scene/Component.h"
 
 // --- Renderer

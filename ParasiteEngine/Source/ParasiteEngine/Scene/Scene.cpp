@@ -32,6 +32,22 @@ namespace Parasite
 
 	void CScene::OnUpdate(CTimestep InTimestep)
 	{
+		// Update scripts
+		{
+			Registry.view<SNativeScriptComponent>().each([=](auto InEntity, auto& InScriptComponent)
+			{
+				// todo: this will need to be moved to runtime start when setup
+				if (!InScriptComponent.Instance)
+				{
+					InScriptComponent.InstantiateFunc();
+					InScriptComponent.Instance->Entity = CEntity(InEntity, this);
+					InScriptComponent.OnCreateFunc(InScriptComponent.Instance);
+				}
+
+				InScriptComponent.OnUpdateFunc(InScriptComponent.Instance, InTimestep);
+			});
+		}
+
 		CCamera* PrimaryCamera = nullptr;
 		glm::mat4* CameraTransform = nullptr;
 		{
