@@ -17,11 +17,18 @@ namespace Parasite
 	void CSceneHierarchyPanel::SetContext(const TSharedPtr<CScene>& InScene)
 	{
 		Context = InScene;
+		SelectionContext = CEntity::NullEntity();
 	}
 
 	void CSceneHierarchyPanel::OnImGuiRender()
 	{
 		ImGui::Begin("Hierarchy");
+
+		if (!Context)
+		{
+			ImGui::End();
+			return;
+		}
 
 		Context->Registry.view<entt::entity>().each([this](auto InEntityID)
 		{

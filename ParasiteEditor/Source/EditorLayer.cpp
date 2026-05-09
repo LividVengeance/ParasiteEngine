@@ -2,6 +2,7 @@
 
 #include "ParasiteEngine/Platform/OpenGL/OpenGLShader.h"
 #include "ParasiteEngine/Scene/SceneSerializer.h"
+#include "ParasiteEngine/Utils/PlatformUtils.h"
 
 #include "ImGui/imgui.h"
 #include "glm/gtc/type_ptr.hpp"
@@ -16,70 +17,11 @@ namespace Parasite
 
 	void CEditorLayer::OnAttach()
 	{
-		//Texture = CTexture2D::Create("Assets/Textures/Checkerboard.png");
-		//SpriteSheet = CTexture2D::Create("Assets/Textures/TextureSheet.png");
-
-		//SubTexture = CSubTexture2D::CreateFromCoords(SpriteSheet, { 2, 1 }, { 128, 128 }, { 1, 2 });
-
 		SFrameBufferSpecification Specification;
 		Specification.Width = 1280;
 		Specification.Height = 720;
 
 		FrameBuffer = CFrameBuffer::Create(Specification);
-
-		ActiveScene = MakeShared<CScene>();
-
-#if 0
-		SqaureEntity = ActiveScene->CreateEntity("Sqaure");
-		SqaureEntity.AddComponent<SSpriteRendererComponent>(glm::vec4{ 1.0f, 0.0f, 1.0f, 1.0f });
-
-		SqaureEntity2 = ActiveScene->CreateEntity("Sqaure2");
-		SqaureEntity2.AddComponent<SSpriteRendererComponent>(glm::vec4{ 0.0f, 1.0f, 1.0f, 1.0f });
-
-		CameraEntity = ActiveScene->CreateEntity("Camera");
-		CameraEntity.AddComponent<SCameraComponent>();
-
-		CameraTwoEntity = ActiveScene->CreateEntity("Camera Two");
-		auto& CameraComp = CameraTwoEntity.AddComponent<SCameraComponent>();
-		CameraComp.bPrimaryCamera = false;
-
-		class CCameraController : public CScriptableEntity
-		{
-		public:
-			void OnCreate()
-			{
-			}
-
-			void OnUpdate(CTimestep InTimestep)
-			{
-				auto& Translation = GetComponent<STransformComponent>().Translation;
-				float Speed = 5.0f;
-
-				if (CInput::IsKeyPressed(PE_KEY_A))
-					Translation.x -= Speed * InTimestep;
-				if (CInput::IsKeyPressed(PE_KEY_D))
-					Translation.x += Speed * InTimestep;
-				if (CInput::IsKeyPressed(PE_KEY_W))
-					Translation.y += Speed * InTimestep;
-				if (CInput::IsKeyPressed(PE_KEY_S))
-					Translation.y -= Speed * InTimestep;
-			}
-
-			void OnDestroy()
-			{
-
-			}
-		};
-
-	
-		CameraTwoEntity.AddComponent<SNativeScriptComponent>().Bind<CCameraController>();
-		CameraEntity.AddComponent<SNativeScriptComponent>().Bind<CCameraController>();
-
-#endif
-		HierarchyPanel.SetContext(ActiveScene);
-
-		CSceneSerializer SceneSerializer(ActiveScene);
-		SceneSerializer.Deserialize("Assets/Scenes/Example.pescene");
 	}
 
 	void CEditorLayer::OnDetach()
@@ -93,28 +35,15 @@ namespace Parasite
 			Camera.OnUpdate(InTimestep);
 		}
 
-
 		FrameBuffer->Bind();
 
 		CRenderCommand::SetClearColour(glm::vec4(0.1f, 0.1f, 0.1f, 1));
 		CRenderCommand::Clear();
 
-		//CRenderer2D::BeginScene(Camera.GetCamera());
-		//for (float y = -5.0f; y < 5.0f; y += 0.5f)
-		//{
-		//	for (float x = -5.0f; x < 5.0f; x += 0.5f)
-		//	{
-		//		glm::vec4 Colour = { (x + 5.0f) / 10.0f, 0.4f, (y + 5.0f) / 10.0f, 0.5f };
-		//		CRenderer2D::DrawQuad({ x, y }, { 0.45f, 0.45f }, Colour);
-		//	}
-		//}
-		//CRenderer2D::EndScene();
-		//
-		//CRenderer2D::BeginScene(Camera.GetCamera());
-		//CRenderer2D::DrawQuad({ 0.0f, 0.0f, 1.0f }, { 1.0f, 2.0f }, SubTexture);
-		//CRenderer2D::EndScene();
-		ActiveScene->OnUpdate(InTimestep);
-
+		if (ActiveScene)
+		{
+			ActiveScene->OnUpdate(InTimestep);
+		}
 		FrameBuffer->Unbind();
 	}
 
@@ -156,23 +85,27 @@ namespace Parasite
 		{
 			if (ImGui::BeginMenu("File"))
 			{
+				if (ImGui::MenuItem("New", "Ctr+N"))
+				{
+					NewScene();
+				}
+				if (ImGui::MenuItem("Save", "Ctr+S"))
+				{
+					SaveScene();
+				}
+				if (ImGui::MenuItem("Open", "Ctr+O"))
+				{
+					OpenScene();
+				}
+				if (ImGui::MenuItem("Save As", "Ctr+Shift+S"))
+				{
+					SaveSceneAs();
+				}
+
 				if (ImGui::MenuItem("Exit"))
 				{
 					CApplication::Get().Close();
 				}
-
-
-				if (ImGui::MenuItem("Serialize"))
-				{
-					CSceneSerializer SceneSerializer(ActiveScene);
-					SceneSerializer.Serialize("Assets/Scenes/Example.pescene");
-				}
-				if (ImGui::MenuItem("Deserialize"))
-				{
-					CSceneSerializer SceneSerializer(ActiveScene);
-					SceneSerializer.Deserialize("Assets/Scenes/Example.pescene");
-				}
-
 
 				ImGui::EndMenu();
 			}
@@ -191,14 +124,6 @@ namespace Parasite
 		ImGui::End();
 
 		HierarchyPanel.OnImGuiRender();
-
-		ImGui::Begin("Camera Settings");
-		if (ImGui::Checkbox("Camera A", &bPrimaryCamera))
-		{
-			CameraEntity.GetComponent<SCameraComponent>().bPrimaryCamera = bPrimaryCamera;
-			CameraTwoEntity.GetComponent<SCameraComponent>().bPrimaryCamera = !bPrimaryCamera;
-		}
-		ImGui::End();
 
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
 		ImGui::Begin("Viewport");
@@ -223,5 +148,95 @@ namespace Parasite
 	void CEditorLayer::OnEvent(CEvent& InEvent)
 	{
 		Camera.OnEvent(InEvent);
+
+		CEventDispatcher Dispatcher(InEvent);
+		Dispatcher.Dispatch<CPressedKeyEvent>(PE_BIND_EVENT_FUNC(CEditorLayer::OnKeyPressed));
+	}
+
+	bool CEditorLayer::OnKeyPressed(CPressedKeyEvent& InEvent)
+	{
+		if (InEvent.GetRepeatCount() > 0)
+		{
+			return false;
+		}
+
+		const bool bIsControlPressed = CInput::IsKeyPressed(PE_KEY_LEFT_CONTROL) || CInput::IsKeyPressed(PE_KEY_RIGHT_CONTROL);
+		const bool bIsShiftPressed = CInput::IsKeyPressed(PE_KEY_LEFT_SHIFT) || CInput::IsKeyPressed(PE_KEY_RIGHT_SHIFT);
+
+		switch (InEvent.GetKeyCode())
+		{
+		case PE_KEY_N:
+		{
+			if (bIsControlPressed)
+			{
+				NewScene();
+			}
+			break;
+		}
+		case PE_KEY_O:
+		{
+			if (bIsControlPressed)
+			{
+				OpenScene();
+			}
+			break;
+		}
+		case PE_KEY_S:
+		{
+			if (bIsControlPressed)
+			{
+				if (bIsShiftPressed)
+				{
+					SaveSceneAs();
+				}
+				else
+				{
+					SaveScene();
+				}
+			}
+
+			break;
+		}
+		}
+	}
+
+	void CEditorLayer::NewScene()
+	{
+		ActiveScene = MakeShared<CScene>();
+		HierarchyPanel.SetContext(ActiveScene);
+	}
+
+	void CEditorLayer::OpenScene()
+	{
+		std::string Filepath = CFileDialogs::OpenFile("Parasite Scene (*.pescene)\0*.pescene\0");
+		if (!Filepath.empty())
+		{
+			ActiveScene = MakeShared<CScene>();
+			HierarchyPanel.SetContext(ActiveScene);
+
+			CSceneSerializer SceneSerializer(ActiveScene);
+			SceneSerializer.Deserialize(Filepath);
+			ActiveSceneFilePath = Filepath;
+		}
+	}
+
+	void CEditorLayer::SaveScene()
+	{
+		PE_ASSERT(!ActiveSceneFilePath.empty(), "Failed to save scene.");
+		if (!ActiveSceneFilePath.empty())
+		{
+			CSceneSerializer SceneSerializer(ActiveScene);
+			SceneSerializer.Serialize(ActiveSceneFilePath);
+		}
+	}
+
+	void CEditorLayer::SaveSceneAs()
+	{
+		std::string Filepath = CFileDialogs::SaveFile("Parasite Scene (*.pescene)\0*.pescene\0");
+		if (!Filepath.empty())
+		{
+			CSceneSerializer SceneSerializer(ActiveScene);
+			SceneSerializer.Serialize(Filepath);
+		}
 	}
 }

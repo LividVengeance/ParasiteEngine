@@ -24,6 +24,14 @@ namespace Parasite
 		virtual void OnEvent(CEvent& InEvent) override;
 
 	private:
+		bool OnKeyPressed(CPressedKeyEvent& InEvent);
+
+		void NewScene();
+		void OpenScene();
+		void SaveScene();
+		void SaveSceneAs();
+
+	private:
 		COrthographicCameraController Camera;
 
 		TSharedPtr<CVertexArray> VertexArray;
@@ -35,6 +43,8 @@ namespace Parasite
 		TSharedPtr<CFrameBuffer> FrameBuffer;
 
 		TSharedPtr<CScene> ActiveScene;
+		std::string ActiveSceneFilePath;
+
 		CEntity SqaureEntity, SqaureEntity2;
 		CEntity CameraEntity, CameraTwoEntity;
 
